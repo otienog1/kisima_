@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.roarafrica.com)",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx next lint:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(dir:*)",
+      "Bash(npm install)",
+      "Bash(git ls-tree:*)",
+      "Bash(npx playwright test:*)",
+      "Bash(PORT=3002 npm run dev)",
+      "Bash(npx playwright:*)",
+      "Bash(timeout 60 npx playwright test tests/mobile-navigation.spec.js --grep \"Mobile Small.*Navigation has proper background\" --timeout=30000)",
+      "WebFetch(domain:localhost)",
+      "Bash(npx next build:*)",
+      "Bash(npx:*)",
+      "Bash(git checkout:*)",
+      "Bash(yarn --version)",
+      "Bash(yarn config get:*)",
+      "Bash(yarn config:*)",
+      "Bash(yarn install)",
+      "Bash(yarn remove:*)",
+      "Bash(yarn add:*)",
+      "Bash(tasklist)",
+      "Bash(findstr:*)",
+      "Bash(yarn install:*)",
+      "Bash(npm:*)",
+      "Bash(rd:*)",
+      "Bash(yarn build)",
+      "Bash(python:*)",
+      "Bash(powershell -Command \"$word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open((Resolve-Path ''''docs\\website_content.docx'''').Path); $doc.Content.Text; $doc.Close(); $word.Quit()\")",
+      "Bash(powershell -Command \"$word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open((Resolve-Path ''docs\\website_content.docx'').Path); $text = $doc.Content.Text; $doc.Close(); $word.Quit(); $text\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

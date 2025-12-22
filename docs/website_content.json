@@ -1,0 +1,209 @@
+{
+    "homepage": {
+        "headline": "Crafted Journeys. Authentic Africa.",
+        "subheadline": "Tailor-made safaris designed for women, families, wildlife lovers, and travelers seeking to reconnect with Africa’s soul.",
+        "intro": "At Journeys by Kisima Safaris, we believe every journey should feel personal, meaningful, and deeply connected to Africa’s heart.",
+        "signature_safaris": [
+            "Wildlife Safaris",
+            "Women-Only Safaris",
+            "Family Safaris",
+            "Connection Safaris",
+            "Marathon Safaris"
+        ],
+        "why_travel_with_us": [
+            "Women-led & locally owned",
+            "Personalized, tailor-made experiences",
+            "Expert local guides",
+            "Sustainable travel in every journey",
+            "Tree planting & community connection",
+            "Seamless planning from start to finish"
+        ],
+        "featured_itineraries": [
+            "7 Days Classic Wildlife Safari",
+            "Women-Only Wellness Retreat",
+            "Family Safari & Beach Escape",
+            "Connection Heritage Journey"
+        ],
+        "sustainability_highlight": "Every journey includes tree planting, community engagement, and eco-conscious travel.",
+        "cta": "Start Planning Your Safari"
+    },
+    "about_us": {
+        "headline": "Crafting Journeys Rooted in Meaning, Connection, and Africa’s Heart.",
+        "story": "Journeys by Kisima Safaris was born from a simple belief: travel should feel personal, purposeful, and deeply connected to the land and its people.",
+        "philosophy": "Travel should enrich both the traveler and the places they visit.",
+        "differentiators": [
+            "Women-led & locally rooted",
+            "Personalized journeys",
+            "Sustainability in every step",
+            "Expert local knowledge",
+            "Comfort blended with authenticity"
+        ],
+        "promise": "Thoughtfully designed journeys, meaningful connections, and memories that stay with you.",
+        "cta": "Start Planning Your Safari"
+    },
+    "wildlife_safaris": {
+        "headline": "Where Africa’s Wild Beauty Meets Culture, Beach & Adventure.",
+        "intro": "Our Wildlife Safaris blend wildlife, culture, beach relaxation, and adventure into one seamless experience.",
+        "why_choose": [
+            "Unmatched wildlife encounters",
+            "Blended experiences",
+            "Expert local guides",
+            "Fully customized itineraries"
+        ],
+        "sustainability": [
+            "Tree planting",
+            "Community visits",
+            "Eco-friendly lodges",
+            "Conservation support"
+        ],
+        "experiences": [
+            "Game drives",
+            "Sundowners",
+            "Cultural interactions",
+            "Hot air balloon (optional)",
+            "Beach extensions"
+        ],
+        "cta": "Start Planning Your Safari"
+    },
+    "women_only_safaris": {
+        "headline": "Travel Boldly. Connect Deeply. Return Empowered.",
+        "intro": "A safe, supportive, inspiring space for women travelers seeking connection, joy, rest, and adventure.",
+        "why_choose": [
+            "Women-led & women-designed",
+            "Safe and empowering",
+            "Sisterhood experiences",
+            "Wellness, culture, wildlife & beach"
+        ],
+        "sustainability": [
+            "Tree planting",
+            "Women’s cooperatives",
+            "Cultural circles",
+            "Eco-conscious travel"
+        ],
+        "experiences": [
+            "Wellness circles",
+            "Cultural storytelling",
+            "Safari drives",
+            "Beach retreats"
+        ],
+        "cta": "Start Planning Your Safari"
+    },
+    "family_safaris": {
+        "headline": "Unplug. Explore. Connect. Create Memories Forever.",
+        "intro": "Designed for families of all ages, from toddlers to grandparents.",
+        "why_choose": [
+            "Flexible & child-friendly",
+            "Educational",
+            "Safe & comfortable",
+            "Multi-generational friendly"
+        ],
+        "sustainability": [
+            "Family tree planting",
+            "School visits",
+            "Eco lodges",
+            "Conservation education"
+        ],
+        "experiences": [
+            "Junior ranger programs",
+            "Nature walks",
+            "Boat rides",
+            "Beach time"
+        ],
+        "cta": "Start Planning Your Safari"
+    },
+    "connection_safaris": {
+        "headline": "Walk the Path of Your Memories. Rediscover Your African Story.",
+        "intro": "For guests with personal or family history in Africa. Emotional, meaningful, and deeply personal journeys.",
+        "why_choose": [
+            "Heritage journeys",
+            "Personal memory exploration",
+            "Gentle pacing",
+            "Deep cultural understanding"
+        ],
+        "sustainability": [
+            "Tree planting dedications",
+            "Community heritage visits"
+        ],
+        "experiences": [
+            "Visit childhood homes",
+            "Cultural storytelling",
+            "Wildlife and beach combinations"
+        ],
+        "cta": "Start Planning Your Safari"
+    },
+    "marathon_safaris": {
+        "headline": "Run Wild. Explore Deeply. Recover Beautifully.",
+        "intro": "A blend of world-class running, wildlife adventure, culture, and beach recovery.",
+        "why_choose": [
+            "Iconic races (Lewa, Iten, Nairobi)",
+            "Seamless race logistics",
+            "Runner & non-runner friendly"
+        ],
+        "sustainability": [
+            "Conservation races",
+            "Tree planting",
+            "Youth running clubs"
+        ],
+        "experiences": [
+            "Training with local runners",
+            "Wildlife safaris",
+            "Beach recovery"
+        ],
+        "cta": "Start Planning Your Safari"
+    },
+    "sustainability_impact": {
+        "headline": "Travel With Purpose. Leave a Legacy.",
+        "pillars": [
+            "Tree planting",
+            "Community empowerment",
+            "Conservation",
+            "Eco-friendly lodges",
+            "Responsible travel practices",
+            "Supporting women and youth"
+        ],
+        "cta": "Learn More"
+    },
+    "travel_information": {
+        "includes": [
+            "Visa information",
+            "Health & vaccinations",
+            "Packing guide",
+            "Vehicle information",
+            "Safety tips",
+            "Best travel seasons",
+            "Responsible travel guidelines",
+            "Booking terms"
+        ],
+        "cta": "Contact Us"
+    },
+    "destinations": {
+        "countries": [
+            "Kenya",
+            "Tanzania",
+            "Uganda",
+            "Rwanda",
+            "Zanzibar"
+        ],
+        "cta": "Explore Destinations"
+    },
+    "blog": {
+        "sections": [
+            "Categories",
+            "Featured articles",
+            "Latest posts",
+            "Travel inspiration",
+            "Newsletter signup"
+        ],
+        "cta": "Read More"
+    },
+    "contact": {
+        "details": [
+            "Contact information",
+            "WhatsApp",
+            "Planning form",
+            "Office information",
+            "Guest assurance"
+        ],
+        "cta": "Start Planning Your Safari"
+    }
+}

@@ -1,0 +1,11 @@
+At line:1 char:151
++ ... 'docs\website_content.docx').Path);  = .Content.Text; .Close(); .Quit ...
++                                                                  ~
+An expression was expected after '('.
+At line:1 char:160
++ ... cs\website_content.docx').Path);  = .Content.Text; .Close(); .Quit();
++                                                                        ~
+An expression was expected after '('.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : ExpectedExpression
+ 
