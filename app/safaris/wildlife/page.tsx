@@ -4,7 +4,34 @@ import Section from "@/components/Section";
 import { getWebsiteContent } from "@/lib/websiteContent";
 import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, MapPin, Calendar, ArrowRight } from "lucide-react";
+
+const wildlifeItineraries = [
+  {
+    id: "classic-kenya-safari-beach",
+    title: "Classic Kenya Safari + Beach",
+    duration: { standard: "12 days", luxury: "8 days" },
+    countries: ["Kenya"],
+    description: "Experience the best of Kenya's wildlife and pristine beaches in this comprehensive safari adventure.",
+    image: "/images/homepage/discover-ea-sa-1.jpg"
+  },
+  {
+    id: "northern-kenya-explorer-beach",
+    title: "Northern Kenya Explorer + Beach",
+    duration: { standard: "12 days", luxury: "7-8 days" },
+    countries: ["Kenya"],
+    description: "Discover Kenya's hidden gems in Samburu and Lewa, with rhino tracking and cultural experiences.",
+    image: "/images/homepage/homepage-safari-experiences.jpg"
+  },
+  {
+    id: "kenya-tanzania-grand-safari-zanzibar",
+    title: "Kenya & Tanzania Safari + Zanzibar",
+    duration: { standard: "14 days", luxury: "9 days" },
+    countries: ["Kenya", "Tanzania"],
+    description: "Explore Kenya and Tanzania's legendary parks combined with relaxing beach time in Zanzibar.",
+    image: "/images/homepage/discover-ea-sa-1.jpg"
+  }
+];
 
 export default function WildlifeSafarisPage() {
   const content = getWebsiteContent();
@@ -76,6 +103,58 @@ export default function WildlifeSafarisPage() {
                 <p className="font-sofia-pro text-stone-600">
                   Immerse yourself in unforgettable moments
                 </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Itineraries Section */}
+      <Section className="py-16 lg:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl">
+          <div className="text-center mb-12">
+            <h2 className="font-freight-display-pro text-3xl lg:text-4xl text-stone-800 mb-4">
+              Signature Safari Itineraries
+            </h2>
+            <p className="font-sofia-pro text-lg text-stone-600 max-w-3xl mx-auto">
+              Explore our carefully crafted wildlife safari itineraries, each designed to give you the ultimate East African experience. Choose from standard or luxury options.
+            </p>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {wildlifeItineraries.map((itinerary) => (
+              <div key={itinerary.id} className="space-y-6">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    alt={itinerary.title}
+                    fill
+                    className="object-cover"
+                    src={itinerary.image}
+                  />
+                </div>
+                <div>
+                  <h3 className="font-sofia-pro-bold text-xl mb-4 text-stone-800">
+                    {itinerary.title}
+                  </h3>
+                  <p className="font-sofia-pro text-stone-700 mb-4">
+                    {itinerary.description}
+                  </p>
+                  <ul className="font-sofia-pro text-sm text-stone-600 space-y-2 mb-6">
+                    <li className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                      <span>{itinerary.duration.standard} (Standard) | {itinerary.duration.luxury} (Luxury)</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                      <span>{itinerary.countries.join(", ")}</span>
+                    </li>
+                  </ul>
+                  <Link
+                    href={`/safaris/wildlife/${itinerary.id}`}
+                    className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-sofia-pro-bold transition-colors"
+                  >
+                    View Full Itinerary <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

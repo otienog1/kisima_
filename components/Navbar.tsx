@@ -25,8 +25,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetPortal,
-  SheetOverlay,
 } from "@/components/ui/sheet"
 
 const destinations = [
@@ -60,27 +58,52 @@ const safaris = [
   {
     title: "Wildlife Safaris",
     href: "/safaris/wildlife",
-    description: "Blend wildlife, culture, beach relaxation, and adventure into one seamless experience."
+    description: "Blend wildlife, culture, beach relaxation, and adventure into one seamless experience.",
+    itineraries: [
+      { title: "Classic Kenya Safari + Beach", href: "/safaris/wildlife/classic-kenya-safari-beach" },
+      { title: "Northern Kenya Explorer + Beach", href: "/safaris/wildlife/northern-kenya-explorer-beach" },
+      { title: "Kenya & Tanzania Safari + Zanzibar", href: "/safaris/wildlife/kenya-tanzania-grand-safari-zanzibar" },
+    ]
   },
   {
     title: "Women-Only Safaris",
     href: "/safaris/women-only",
-    description: "Safe, supportive, inspiring spaces for women travelers seeking connection and empowerment."
+    description: "Safe, supportive, inspiring spaces for women travelers seeking connection and empowerment.",
+    itineraries: [
+      { title: "Sisterhood Safari - Kenya", href: "/safaris/women-only/sisterhood-kenya-safari" },
+      { title: "Women's Empowerment - Uganda", href: "/safaris/women-only/women-empowerment-uganda" },
+      { title: "Coastal Culture Women's Journey", href: "/safaris/women-only/coastal-culture-women-tanzania" },
+    ]
   },
   {
     title: "Family Safaris",
     href: "/safaris/family",
-    description: "Multi-generational adventures designed for families of all ages."
+    description: "Multi-generational adventures designed for families of all ages.",
+    itineraries: [
+      { title: "Kenya Family Adventure", href: "/safaris/family/family-adventure-kenya" },
+      { title: "Uganda Family Gorilla Experience", href: "/safaris/family/gorilla-family-uganda" },
+      { title: "Tanzania Family Safari Classic", href: "/safaris/family/tanzania-family-safari" },
+    ]
   },
   {
     title: "Connection Safaris",
     href: "/safaris/connection",
-    description: "Heritage journeys for those with personal or family history in Africa."
+    description: "Heritage journeys for those with personal or family history in Africa.",
+    itineraries: [
+      { title: "Roots Return - Kenya", href: "/safaris/connection/roots-return-kenya" },
+      { title: "Heritage Journey - Tanzania", href: "/safaris/connection/heritage-journey-tanzania" },
+      { title: "Cultural Connection - Uganda & Rwanda", href: "/safaris/connection/cultural-connection-uganda-rwanda" },
+    ]
   },
   {
     title: "Marathon Safaris",
     href: "/safaris/marathon",
-    description: "Combine world-class running with wildlife adventure and beach recovery."
+    description: "Combine world-class running with wildlife adventure and beach recovery.",
+    itineraries: [
+      { title: "Kilimanjaro Marathon Safari", href: "/safaris/marathon/kilimanjaro-marathon-safari" },
+      { title: "Lewa Safari Marathon Experience", href: "/safaris/marathon/safari-marathon-kenya" },
+      { title: "Gorilla Marathon - Uganda & Rwanda", href: "/safaris/marathon/gorilla-marathon-uganda-rwanda" },
+    ]
   },
 ]
 
@@ -94,8 +117,17 @@ export default function Navbar() {
   const [destinationsSheetOpen, setDestinationsSheetOpen] = React.useState(false)
   const [safarisSheetOpen, setSafarisSheetOpen] = React.useState(false)
 
+  // Set first safari as default when sheet opens
+  React.useEffect(() => {
+    if (safarisSheetOpen && !hoveredSafari) {
+      setHoveredSafari(safaris[0].title)
+    } else if (!safarisSheetOpen) {
+      setHoveredSafari(null)
+    }
+  }, [safarisSheetOpen])
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white/95 backdrop-blur-sm shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/10 bg-white/95 backdrop-blur-sm">
       <div className="container flex h-20 max-w-screen-xl items-center justify-between">
         {/* Logo */}
         <div className="flex">
@@ -377,11 +409,28 @@ export default function Navbar() {
         </Sheet>
       </div>
 
+      {/* Custom Overlay for Destinations */}
+      <div
+        className={cn(
+          "fixed left-0 right-0 bg-stone-800/60 backdrop-blur-sm transition-all duration-500 ease-in-out z-40",
+          destinationsSheetOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        style={{
+          top: '5rem',
+          height: 'calc(100vh - 5rem)',
+          transitionDelay: destinationsSheetOpen ? '200ms' : '0ms'
+        }}
+        onClick={() => setDestinationsSheetOpen(false)}
+      />
+
       {/* Destinations Sliding Panel */}
       <Sheet open={destinationsSheetOpen} onOpenChange={setDestinationsSheetOpen}>
-        <SheetPortal>
-          <SheetOverlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left" style={{ top: '5rem', height: 'calc(100vh - 5rem)' }} />
-          <SheetContent side="left" className="w-full sm:w-[540px] max-w-none bg-white border-r-0" style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}>
+          <SheetContent
+            side="left"
+            hideOverlay={true}
+            className="w-full sm:w-1/2 max-w-none bg-white border-r-0 z-50"
+            style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}
+          >
             <SheetHeader>
               <SheetTitle className="text-2xl font-freight-display-pro text-stone-800">
                 Destinations
@@ -430,40 +479,103 @@ export default function Navbar() {
               ))}
             </div>
           </SheetContent>
-        </SheetPortal>
       </Sheet>
+
+      {/* Custom Overlay for Safaris */}
+      <div
+        className={cn(
+          "fixed left-0 right-0 bg-stone-800/60 backdrop-blur-sm transition-all duration-500 ease-in-out z-40",
+          safarisSheetOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
+        style={{
+          top: '5rem',
+          height: 'calc(100vh - 5rem)',
+          transitionDelay: safarisSheetOpen ? '200ms' : '0ms'
+        }}
+        onClick={() => setSafarisSheetOpen(false)}
+      />
 
       {/* Safaris Sliding Panel */}
       <Sheet open={safarisSheetOpen} onOpenChange={setSafarisSheetOpen}>
-        <SheetPortal>
-          <SheetOverlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left" style={{ top: '5rem', height: 'calc(100vh - 5rem)' }} />
-          <SheetContent side="left" className="w-full sm:w-[540px] max-w-none bg-white border-r-0" style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}>
-            <SheetHeader>
-              <SheetTitle className="text-2xl font-freight-display-pro text-stone-800">
-                Safaris
-              </SheetTitle>
-              <SheetDescription>
-                Choose your perfect safari experience
-              </SheetDescription>
+          <SheetContent
+            side="left"
+            hideOverlay={true}
+            className="w-full sm:w-2/3 lg:w-3/5 max-w-none bg-white border-r-0 border-t border-border/10 z-50 p-0"
+            style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}
+          >
+            <SheetHeader className="sr-only">
+              <SheetTitle>Safaris Navigation</SheetTitle>
             </SheetHeader>
-            <div className="mt-8 space-y-4 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 14rem)' }}>
-              {safaris.map((safari) => (
-                <Link
-                  key={safari.title}
-                  href={safari.href}
-                  onClick={() => setSafarisSheetOpen(false)}
-                  className={cn(
-                    "block p-4 rounded-lg hover:bg-amber-50 transition-colors border border-stone-200",
-                    pathname === safari.href && "bg-amber-100 border-amber-300"
-                  )}
-                >
-                  <h3 className="font-sofia-pro-bold text-lg text-stone-800 mb-2">{safari.title}</h3>
-                  <p className="font-sofia-pro text-sm text-stone-600">{safari.description}</p>
-                </Link>
-              ))}
+            <div className="flex h-full">
+              {/* Left Column - Safari Types */}
+              <div className="w-1/2 border-r border-stone-200 p-6 overflow-y-auto">
+                <div className="space-y-2">
+                  {safaris.map((safari) => (
+                    <div
+                      key={safari.title}
+                      onMouseEnter={() => setHoveredSafari(safari.title)}
+                      className={cn(
+                        "block p-4 rounded-lg transition-all duration-200 cursor-pointer",
+                        hoveredSafari === safari.title && "bg-amber-50",
+                        pathname.startsWith(safari.href) && !hoveredSafari && "bg-amber-100"
+                      )}
+                    >
+                      <Link
+                        href={safari.href}
+                        onClick={() => setSafarisSheetOpen(false)}
+                        className="block"
+                      >
+                        <h3 className="font-sofia-pro-bold text-base text-stone-800 mb-1">{safari.title}</h3>
+                        <p className="font-sofia-pro text-xs text-stone-600 line-clamp-2">{safari.description}</p>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column - Itineraries */}
+              <div className="w-1/2 p-6 overflow-y-auto bg-stone-50">
+                {hoveredSafari ? (
+                  <>
+                    <h3 className="font-sofia-pro-bold text-lg text-stone-800 mb-4">
+                      {hoveredSafari} Itineraries
+                    </h3>
+                    <div className="space-y-2">
+                      {safaris
+                        .find((s) => s.title === hoveredSafari)
+                        ?.itineraries.map((itinerary, idx) => (
+                          <Link
+                            key={itinerary.href}
+                            href={itinerary.href}
+                            onClick={() => {
+                              setSafarisSheetOpen(false)
+                              setHoveredSafari(null)
+                            }}
+                            className={cn(
+                              "block py-3 rounded-lg transition-colors group animate-in fade-in slide-in-from-left-4",
+                              pathname === itinerary.href && "bg-white shadow-sm border border-amber-200"
+                            )}
+                            style={{
+                              animationDelay: `${idx * 100}ms`,
+                              animationDuration: "500ms",
+                              animationFillMode: "both"
+                            }}
+                          >
+                            <p className="font-sofia-pro text-sm text-stone-700 group-hover:text-amber-600 transition-colors">{itinerary.title}</p>
+                          </Link>
+                        ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center h-full text-center">
+                    <p className="font-sofia-pro text-sm text-stone-500">
+                      Hover over a safari type to see itineraries
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </SheetContent>
-        </SheetPortal>
       </Sheet>
     </header>
   )
