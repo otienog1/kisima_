@@ -127,6 +127,75 @@ export const wildlifeItinerariesData: Itinerary[] = [
       { day: 14, title: "Departure", description: "Transfer to airport" }
     ],
     luxuryLodges: ["Tortilis Camp", "Tarangire Treetops", "Four Seasons Safari Lodge Serengeti", "Ngorongoro Crater Lodge", "The Residence Zanzibar"]
+  },
+  {
+    id: "ultimate-tanzania-wildlife",
+    title: "Ultimate Tanzania Wildlife Safari",
+    duration: { standard: "10 days", luxury: "7 days" },
+    countries: ["Tanzania"],
+    description: "Experience the best of Tanzania's legendary parks: Serengeti, Ngorongoro Crater, and Tarangire.",
+    image: "/images/homepage/homepage-safari-experiences.jpg",
+    destinations: [
+      "Arusha",
+      "Tarangire National Park",
+      "Serengeti National Park",
+      "Ngorongoro Crater"
+    ],
+    highlights: [
+      "Serengeti's endless plains and Great Migration",
+      "Ngorongoro Crater Big Five viewing",
+      "Tarangire's elephant herds and baobabs",
+      "Luxury tented camps throughout"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Arusha", description: "Airport transfer and safari briefing" },
+      { day: 2, title: "Arusha to Tarangire", description: "Game drive in Tarangire National Park" },
+      { day: 3, title: "Tarangire Safari", description: "Full day of game drives" },
+      { day: 4, title: "Tarangire to Serengeti", description: "Journey to Serengeti National Park" },
+      { day: 5, title: "Central Serengeti", description: "Full day game drives" },
+      { day: 6, title: "Central Serengeti", description: "Morning and afternoon drives" },
+      { day: 7, title: "Serengeti to Ngorongoro", description: "Transfer to crater rim" },
+      { day: 8, title: "Ngorongoro Crater", description: "Crater descent and game viewing" },
+      { day: 9, title: "Ngorongoro Cultural Day", description: "Maasai village visit" },
+      { day: 10, title: "Departure", description: "Return to Arusha and airport transfer" }
+    ],
+    luxuryLodges: ["Tarangire Treetops", "Serengeti Pioneer Camp", "Ngorongoro Crater Lodge"]
+  },
+  {
+    id: "uganda-primate-wildlife",
+    title: "Uganda Primate & Wildlife Safari",
+    duration: { standard: "12 days", luxury: "9 days" },
+    countries: ["Uganda"],
+    description: "Combine gorilla and chimpanzee trekking with traditional savanna wildlife experiences.",
+    image: "/images/homepage/discover-ea-sa-1.jpg",
+    destinations: [
+      "Entebbe",
+      "Murchison Falls National Park",
+      "Kibale Forest National Park",
+      "Queen Elizabeth National Park",
+      "Bwindi Impenetrable Forest"
+    ],
+    highlights: [
+      "Mountain gorilla trekking in Bwindi",
+      "Chimpanzee tracking in Kibale",
+      "Murchison Falls boat cruise",
+      "Tree-climbing lions in Ishasha"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Entebbe", description: "Airport pickup and hotel transfer" },
+      { day: 2, title: "Entebbe to Murchison Falls", description: "Journey to Murchison Falls NP" },
+      { day: 3, title: "Murchison Falls Safari", description: "Game drive and boat cruise to falls" },
+      { day: 4, title: "Murchison to Kibale", description: "Transfer with community visit" },
+      { day: 5, title: "Chimpanzee Tracking", description: "Chimp trekking in Kibale Forest" },
+      { day: 6, title: "Kibale to Queen Elizabeth", description: "Journey to Queen Elizabeth NP" },
+      { day: 7, title: "Queen Elizabeth Safari", description: "Game drives and Kazinga Channel cruise" },
+      { day: 8, title: "Ishasha Sector", description: "Tree-climbing lions game drive" },
+      { day: 9, title: "Ishasha to Bwindi", description: "Transfer to Bwindi Forest" },
+      { day: 10, title: "Gorilla Trekking Day", description: "Mountain gorilla trekking" },
+      { day: 11, title: "Bwindi to Entebbe", description: "Return journey with scenic stops" },
+      { day: 12, title: "Departure", description: "Airport transfer for departure" }
+    ],
+    luxuryLodges: ["Paraa Safari Lodge", "Primate Lodge Kibale", "Mweya Safari Lodge", "Buhoma Lodge"]
   }
 ];
 
@@ -226,6 +295,69 @@ export const womenOnlyItinerariesData: Itinerary[] = [
       { day: 8, title: "Departure", description: "Transfer to airport" }
     ],
     luxuryLodges: ["Park Hyatt Zanzibar", "Zuri Zanzibar", "The Manta Resort"]
+  },
+  {
+    id: "wellness-retreat-rwanda",
+    title: "Women's Wellness Rwanda Retreat",
+    duration: { standard: "7 days", luxury: "5 days" },
+    countries: ["Rwanda"],
+    description: "Combine gorilla trekking with wellness activities in Rwanda's stunning landscapes.",
+    image: "/images/homepage/homepage-adventure-travel.jpg",
+    destinations: [
+      "Kigali",
+      "Volcanoes National Park",
+      "Lake Kivu"
+    ],
+    highlights: [
+      "Mountain gorilla trekking",
+      "Yoga and meditation sessions",
+      "Spa treatments at Lake Kivu",
+      "Women's genocide memorial visit"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Kigali", description: "City tour and genocide memorial" },
+      { day: 2, title: "Kigali to Volcanoes NP", description: "Journey to Volcanoes National Park" },
+      { day: 3, title: "Gorilla Trekking", description: "Mountain gorilla trekking experience" },
+      { day: 4, title: "Golden Monkey Trek", description: "Golden monkey tracking and spa" },
+      { day: 5, title: "Volcanoes to Lake Kivu", description: "Transfer to Lake Kivu" },
+      { day: 6, title: "Lake Kivu Wellness", description: "Yoga, kayaking, and wellness activities" },
+      { day: 7, title: "Departure", description: "Return to Kigali for departure" }
+    ],
+    luxuryLodges: ["Bisate Lodge", "One&Only Gorilla's Nest", "Lake Kivu Serena"]
+  },
+  {
+    id: "adventure-tanzania",
+    title: "Women's Adventure Tanzania Safari",
+    duration: { standard: "11 days", luxury: "8 days" },
+    countries: ["Tanzania"],
+    description: "Empowering adventure combining wildlife safari with Kilimanjaro day hike.",
+    image: "/images/homepage/discover-ea-sa-2.jpg",
+    destinations: [
+      "Arusha",
+      "Mount Kilimanjaro",
+      "Serengeti National Park",
+      "Ngorongoro Crater"
+    ],
+    highlights: [
+      "Kilimanjaro day hike to first camp",
+      "Women-led safari experiences",
+      "Great Migration viewing (seasonal)",
+      "Empowerment workshops and networking"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Arusha", description: "Welcome dinner and orientation" },
+      { day: 2, title: "Kilimanjaro Day Hike", description: "Hike to Mandara Hut and back" },
+      { day: 3, title: "Arusha to Serengeti", description: "Flight to Serengeti" },
+      { day: 4, title: "Serengeti Safari", description: "Full day game drives" },
+      { day: 5, title: "Serengeti Safari", description: "Morning and afternoon drives" },
+      { day: 6, title: "Serengeti to Ngorongoro", description: "Transfer to crater rim" },
+      { day: 7, title: "Ngorongoro Crater", description: "Crater tour and empowerment workshop" },
+      { day: 8, title: "Ngorongoro to Arusha", description: "Cultural visit en route" },
+      { day: 9, title: "Community Day", description: "Visit to women's cooperatives" },
+      { day: 10, title: "Lake Manyara", description: "Game drive and farewell dinner" },
+      { day: 11, title: "Departure", description: "Transfer to airport" }
+    ],
+    luxuryLodges: ["Serengeti Pioneer Camp", "Ngorongoro Crater Lodge", "Lake Manyara Serena"]
   }
 ];
 
@@ -325,6 +457,74 @@ export const familyItinerariesData: Itinerary[] = [
       { day: 9, title: "Departure", description: "Flight back to Arusha" }
     ],
     luxuryLodges: ["Tarangire Safari Lodge", "Ngorongoro Farm House", "Serengeti Serena Safari Lodge"]
+  },
+  {
+    id: "rwanda-family-gorilla",
+    title: "Rwanda Family Gorilla Safari",
+    duration: { standard: "7 days", luxury: "5 days" },
+    countries: ["Rwanda"],
+    description: "Kid-friendly gorilla trekking adventure combined with Lake Kivu beach relaxation.",
+    image: "/images/homepage/homepage-mice-solutions.jpg",
+    destinations: [
+      "Kigali",
+      "Volcanoes National Park",
+      "Lake Kivu"
+    ],
+    highlights: [
+      "Family gorilla trekking (teens 15+)",
+      "Golden monkey tracking for younger children",
+      "Lake Kivu water activities",
+      "Cultural visits and storytelling sessions"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Kigali", description: "Family-friendly city tour" },
+      { day: 2, title: "Kigali to Volcanoes NP", description: "Journey to Volcanoes National Park" },
+      { day: 3, title: "Gorilla Trekking Day", description: "Mountain gorilla trekking for teens" },
+      { day: 4, title: "Golden Monkey Trek", description: "Monkey tracking and cultural visit" },
+      { day: 5, title: "Volcanoes to Lake Kivu", description: "Transfer to Lake Kivu" },
+      { day: 6, title: "Lake Kivu Family Fun", description: "Kayaking, swimming, and beach games" },
+      { day: 7, title: "Departure", description: "Return to Kigali for departure" }
+    ],
+    luxuryLodges: ["Five Volcanoes Boutique Hotel", "Lake Kivu Serena", "Kigali Serena"]
+  },
+  {
+    id: "east-africa-grand-tour",
+    title: "East Africa Family Grand Tour",
+    duration: { standard: "14 days", luxury: "10 days" },
+    countries: ["Kenya", "Tanzania", "Uganda"],
+    description: "Multi-country family adventure across East Africa's best destinations.",
+    image: "/images/homepage/discover-ea-sa-1.jpg",
+    destinations: [
+      "Nairobi",
+      "Masai Mara",
+      "Serengeti National Park",
+      "Ngorongoro Crater",
+      "Entebbe",
+      "Kibale Forest"
+    ],
+    highlights: [
+      "Big Five viewing in multiple countries",
+      "Chimpanzee tracking for families",
+      "Cultural experiences across three nations",
+      "Family-friendly lodges throughout"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Nairobi", description: "Family orientation and wildlife center visit" },
+      { day: 2, title: "Nairobi to Masai Mara", description: "Drive to Masai Mara" },
+      { day: 3, title: "Masai Mara Safari", description: "Full day family game drives" },
+      { day: 4, title: "Masai Mara to Serengeti", description: "Cross-border transfer" },
+      { day: 5, title: "Serengeti Safari", description: "Game drives in Serengeti" },
+      { day: 6, title: "Serengeti to Ngorongoro", description: "Journey to crater rim" },
+      { day: 7, title: "Ngorongoro Crater", description: "Crater tour and picnic" },
+      { day: 8, title: "Ngorongoro to Arusha", description: "Cultural center visit" },
+      { day: 9, title: "Flight to Entebbe", description: "Fly to Uganda" },
+      { day: 10, title: "Entebbe to Kibale", description: "Drive to Kibale Forest" },
+      { day: 11, title: "Chimpanzee Tracking", description: "Family chimp tracking" },
+      { day: 12, title: "Kibale to Entebbe", description: "Return journey" },
+      { day: 13, title: "Entebbe Relaxation", description: "Lake Victoria activities" },
+      { day: 14, title: "Departure", description: "Transfer to airport" }
+    ],
+    luxuryLodges: ["Basecamp Masai Mara", "Serengeti Serena", "Ngorongoro Serena", "Primate Lodge Kibale"]
   }
 ];
 
@@ -428,6 +628,75 @@ export const connectionItinerariesData: Itinerary[] = [
       { day: 9, title: "Departure", description: "Return to Kigali for departure" }
     ],
     luxuryLodges: ["Kampala Serena Hotel", "Kigali Serena Hotel", "Five Volcanoes Boutique Hotel"]
+  },
+  {
+    id: "coastal-heritage-swahili",
+    title: "Coastal Heritage - Swahili Coast",
+    duration: { standard: "10 days", luxury: "7 days" },
+    countries: ["Kenya", "Tanzania"],
+    description: "Explore the rich Swahili culture and history along Kenya and Tanzania's coast.",
+    image: "/images/homepage/homepage-safari-experiences.jpg",
+    destinations: [
+      "Mombasa",
+      "Lamu Island",
+      "Zanzibar Stone Town",
+      "Dar es Salaam"
+    ],
+    highlights: [
+      "Swahili architecture and cultural heritage",
+      "Historic fort visits and museums",
+      "Traditional dhow sailing experiences",
+      "Spice route historical exploration"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Mombasa", description: "Fort Jesus tour and old town exploration" },
+      { day: 2, title: "Mombasa Cultural Day", description: "Swahili cooking class and market visit" },
+      { day: 3, title: "Mombasa to Lamu", description: "Flight to historic Lamu Island" },
+      { day: 4, title: "Lamu Island Heritage", description: "Donkey sanctuary and old town walking tour" },
+      { day: 5, title: "Lamu Cultural Experience", description: "Dhow sailing and Swahili museum" },
+      { day: 6, title: "Lamu to Zanzibar", description: "Flight to Zanzibar Stone Town" },
+      { day: 7, title: "Stone Town Exploration", description: "UNESCO site tour and Palace Museum" },
+      { day: 8, title: "Zanzibar Spice Tour", description: "Spice plantations and cultural center" },
+      { day: 9, title: "Zanzibar to Dar es Salaam", description: "Ferry to Dar, national museum visit" },
+      { day: 10, title: "Departure", description: "Farewell and airport transfer" }
+    ],
+    luxuryLodges: ["Serena Beach Resort", "Lamu House Hotel", "Park Hyatt Zanzibar", "Dar es Salaam Serena"]
+  },
+  {
+    id: "ancestral-journey-east-africa",
+    title: "Ancestral Journey - East Africa",
+    duration: { standard: "12 days", luxury: "9 days" },
+    countries: ["Kenya", "Tanzania"],
+    description: "Trace ancestry and explore cultural heritage across Kenya and Tanzania.",
+    image: "/images/homepage/discover-ea-sa-1.jpg",
+    destinations: [
+      "Nairobi",
+      "Great Rift Valley",
+      "Masai Mara",
+      "Serengeti",
+      "Olduvai Gorge"
+    ],
+    highlights: [
+      "Visit to Olduvai Gorge - Cradle of Mankind",
+      "Cultural immersion with Maasai communities",
+      "Genealogy research assistance",
+      "Traditional ceremonies and storytelling"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Nairobi", description: "National Archives genealogy research" },
+      { day: 2, title: "Nairobi Cultural Sites", description: "Museums and heritage center tours" },
+      { day: 3, title: "Nairobi to Rift Valley", description: "Journey through Great Rift Valley" },
+      { day: 4, title: "Rift Valley Cultural Day", description: "Community visits and cultural exchange" },
+      { day: 5, title: "Rift Valley to Masai Mara", description: "Travel to Masai Mara" },
+      { day: 6, title: "Masai Cultural Immersion", description: "Maasai village stay and ceremonies" },
+      { day: 7, title: "Masai Mara to Serengeti", description: "Cross-border cultural journey" },
+      { day: 8, title: "Serengeti Wildlife & Culture", description: "Game drives and cultural talks" },
+      { day: 9, title: "Olduvai Gorge Visit", description: "Cradle of Mankind archaeological site" },
+      { day: 10, title: "Cultural Workshop Day", description: "Traditional crafts and storytelling" },
+      { day: 11, title: "Serengeti to Arusha", description: "Cultural center visits en route" },
+      { day: 12, title: "Departure", description: "Farewell ceremony and transfer" }
+    ],
+    luxuryLodges: ["Sarova Stanley", "Lake Naivasha Sopa", "Governors' Camp", "Serengeti Serena"]
   }
 ];
 
@@ -523,5 +792,69 @@ export const marathonItinerariesData: Itinerary[] = [
       { day: 9, title: "Departure", description: "Return to Kigali for departure" }
     ],
     luxuryLodges: ["Lake Mulehe Safari Lodge", "Virunga Lodge", "Bisate Lodge"]
+  },
+  {
+    id: "great-migration-marathon",
+    title: "Great Migration Marathon",
+    duration: { standard: "10 days", luxury: "7 days" },
+    countries: ["Kenya"],
+    description: "Run through Masai Mara during the Great Migration season with world-class wildlife.",
+    image: "/images/homepage/homepage-safari-experiences.jpg",
+    destinations: [
+      "Nairobi",
+      "Masai Mara National Reserve",
+      "Diani Beach"
+    ],
+    highlights: [
+      "Marathon during Great Migration period",
+      "Running alongside wildlife in Mara",
+      "Post-race game drives",
+      "Beach recovery in Diani"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Nairobi", description: "Airport pickup and marathon registration" },
+      { day: 2, title: "Nairobi to Masai Mara", description: "Journey to Masai Mara for race" },
+      { day: 3, title: "Pre-Race Training", description: "Light training run and race briefing" },
+      { day: 4, title: "Marathon Day", description: "Great Migration Marathon race" },
+      { day: 5, title: "Recovery Game Drive", description: "Morning game drive and spa treatments" },
+      { day: 6, title: "Full Day Safari", description: "Migration viewing and wildlife photography" },
+      { day: 7, title: "Mara to Diani Beach", description: "Flight to coast for recovery" },
+      { day: 8, title: "Beach Recovery", description: "Massage, yoga, and beach relaxation" },
+      { day: 9, title: "Diani Beach", description: "Optional water sports or rest" },
+      { day: 10, title: "Departure", description: "Transfer to Mombasa for departure" }
+    ],
+    luxuryLodges: ["Governors' Camp", "The Sands at Nomad", "Almanara Luxury Resort"]
+  },
+  {
+    id: "mount-kenya-trail-running",
+    title: "Mount Kenya Trail Running Safari",
+    duration: { standard: "9 days", luxury: "7 days" },
+    countries: ["Kenya"],
+    description: "High-altitude trail running on Mount Kenya combined with wildlife safari.",
+    image: "/images/homepage/discover-ea-sa-1.jpg",
+    destinations: [
+      "Nairobi",
+      "Mount Kenya",
+      "Laikipia Plateau",
+      "Samburu National Reserve"
+    ],
+    highlights: [
+      "Trail running at high altitude",
+      "Point Lenana summit attempt (4985m)",
+      "Wildlife conservancy runs",
+      "Recovery safari in Samburu"
+    ],
+    activities: [
+      { day: 1, title: "Arrival in Nairobi", description: "Briefing and gear check" },
+      { day: 2, title: "Nairobi to Mount Kenya", description: "Drive to Naro Moru route" },
+      { day: 3, title: "Mount Kenya Acclimatization", description: "Trail run to Met Station (3000m)" },
+      { day: 4, title: "High Altitude Training", description: "Run to Mackinder's Camp (4200m)" },
+      { day: 5, title: "Point Lenana Summit", description: "Early morning summit run and descent" },
+      { day: 6, title: "Mount Kenya to Laikipia", description: "Transfer to Laikipia Plateau" },
+      { day: 7, title: "Conservancy Trail Run", description: "Running safari in wildlife conservancy" },
+      { day: 8, title: "Laikipia to Samburu", description: "Journey to Samburu for recovery" },
+      { day: 9, title: "Departure", description: "Morning game drive and return to Nairobi" }
+    ],
+    luxuryLodges: ["Fairmont Mount Kenya Safari Club", "Ol Pejeta Bush Camp", "Saruni Samburu"]
   }
 ];

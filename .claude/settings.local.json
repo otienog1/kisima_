@@ -32,7 +32,9 @@
       "Bash(yarn build)",
       "Bash(python:*)",
       "Bash(powershell -Command \"$word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open((Resolve-Path ''''docs\\website_content.docx'''').Path); $doc.Content.Text; $doc.Close(); $word.Quit()\")",
-      "Bash(powershell -Command \"$word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open((Resolve-Path ''docs\\website_content.docx'').Path); $text = $doc.Content.Text; $doc.Close(); $word.Quit(); $text\")"
+      "Bash(powershell -Command \"$word = New-Object -ComObject Word.Application; $word.Visible = $false; $doc = $word.Documents.Open((Resolve-Path ''docs\\website_content.docx'').Path); $text = $doc.Content.Text; $doc.Close(); $word.Quit(); $text\")",
+      "Bash(npm install:*)",
+      "Bash(netstat:*)"
     ],
     "deny": [],
     "ask": []

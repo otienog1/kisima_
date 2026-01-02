@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import ProgressLink from "@/components/ProgressLink"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
@@ -29,27 +30,51 @@ import {
 
 const destinations = [
   {
-    title: "Eastern Africa",
-    href: "/destinations/eastern",
-    description: "Kenya, Tanzania, Rwanda, Uganda, Ethiopia - The birthplace of safari.",
-    countries: [
-      { name: "Kenya", href: "/destinations/kenya" },
-      { name: "Tanzania", href: "/destinations/tanzania" },
-      { name: "Rwanda", href: "/destinations/rwanda" },
-      { name: "Uganda", href: "/destinations/uganda" },
-      { name: "Ethiopia", href: "/destinations/ethiopia" },
+    name: "Kenya",
+    href: "/destinations/kenya",
+    description: "The birthplace of safari with iconic wildlife destinations",
+    attractions: [
+      { name: "Masai Mara National Reserve", description: "Home to the Great Migration", slug: "masai-mara-national-reserve" },
+      { name: "Amboseli National Park", description: "Elephant paradise with Kilimanjaro views", slug: "amboseli-national-park" },
+      { name: "Samburu National Reserve", description: "Unique wildlife in northern Kenya", slug: "samburu-national-reserve" },
+      { name: "Lake Nakuru National Park", description: "Famous flamingo and rhino sanctuary", slug: "lake-nakuru-national-park" },
+      { name: "Tsavo National Parks", description: "Kenya's largest wilderness area", slug: "tsavo-national-parks" },
     ]
   },
   {
-    title: "Southern Africa",
-    href: "/destinations/southern",
-    description: "South Africa, Zimbabwe, Zambia, Botswana, Namibia - Dramatic landscapes and wildlife.",
-    countries: [
-      { name: "South Africa", href: "/destinations/south-africa-and-cape-town" },
-      { name: "Zimbabwe", href: "/destinations/zimbabwe" },
-      { name: "Zambia", href: "/destinations/zambia" },
-      { name: "Botswana", href: "/destinations/botswana" },
-      { name: "Namibia", href: "/destinations/namibia" },
+    name: "Tanzania",
+    href: "/destinations/tanzania",
+    description: "Legendary parks and pristine beaches of East Africa",
+    attractions: [
+      { name: "Serengeti National Park", description: "Iconic endless plains and migration", slug: "serengeti-national-park" },
+      { name: "Ngorongoro Crater", description: "World's largest intact volcanic caldera", slug: "ngorongoro-crater" },
+      { name: "Tarangire National Park", description: "Elephant haven with baobab trees", slug: "tarangire-national-park" },
+      { name: "Zanzibar", description: "Spice island with pristine beaches", slug: "zanzibar" },
+      { name: "Mount Kilimanjaro", description: "Africa's highest peak", slug: "mount-kilimanjaro" },
+    ]
+  },
+  {
+    name: "Uganda",
+    href: "/destinations/uganda",
+    description: "The Pearl of Africa with mountain gorillas",
+    attractions: [
+      { name: "Bwindi Impenetrable Forest", description: "Mountain gorilla trekking paradise", slug: "bwindi-impenetrable-forest" },
+      { name: "Queen Elizabeth National Park", description: "Tree-climbing lions and boat safaris", slug: "queen-elizabeth-national-park" },
+      { name: "Murchison Falls National Park", description: "Powerful waterfall and wildlife", slug: "murchison-falls-national-park" },
+      { name: "Kibale Forest National Park", description: "Chimpanzee tracking capital", slug: "kibale-forest-national-park" },
+      { name: "Lake Bunyonyi", description: "Beautiful terraced highland lake", slug: "lake-bunyonyi" },
+    ]
+  },
+  {
+    name: "Rwanda",
+    href: "/destinations/rwanda",
+    description: "Land of a thousand hills and gorillas",
+    attractions: [
+      { name: "Volcanoes National Park", description: "Mountain gorilla encounters", slug: "volcanoes-national-park" },
+      { name: "Nyungwe Forest National Park", description: "Chimpanzees and canopy walks", slug: "nyungwe-forest-national-park" },
+      { name: "Akagera National Park", description: "Big Five savanna experience", slug: "akagera-national-park" },
+      { name: "Lake Kivu", description: "Scenic lakeside relaxation", slug: "lake-kivu" },
+      { name: "Kigali", description: "Clean capital with genocide memorial", slug: "kigali" },
     ]
   },
 ]
@@ -60,9 +85,11 @@ const safaris = [
     href: "/safaris/wildlife",
     description: "Blend wildlife, culture, beach relaxation, and adventure into one seamless experience.",
     itineraries: [
-      { title: "Classic Kenya Safari + Beach", href: "/safaris/wildlife/classic-kenya-safari-beach" },
-      { title: "Northern Kenya Explorer + Beach", href: "/safaris/wildlife/northern-kenya-explorer-beach" },
-      { title: "Kenya & Tanzania Safari + Zanzibar", href: "/safaris/wildlife/kenya-tanzania-grand-safari-zanzibar" },
+      { title: "Classic Kenya Safari + Beach", href: "/safaris/wildlife/classic-kenya-safari-beach", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Kenya's wildlife and pristine beaches combined" },
+      { title: "Northern Kenya Explorer + Beach", href: "/safaris/wildlife/northern-kenya-explorer-beach", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Samburu, Lewa rhino tracking, and beach" },
+      { title: "Kenya & Tanzania Safari + Zanzibar", href: "/safaris/wildlife/kenya-tanzania-grand-safari-zanzibar", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Legendary parks with Zanzibar beach relaxation" },
+      { title: "Ultimate Tanzania Wildlife Safari", href: "/safaris/wildlife/ultimate-tanzania-wildlife", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Serengeti, Ngorongoro, and Tarangire adventure" },
+      { title: "Uganda Primate & Wildlife Safari", href: "/safaris/wildlife/uganda-primate-wildlife", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Gorillas, chimps, and savanna wildlife" },
     ]
   },
   {
@@ -70,9 +97,11 @@ const safaris = [
     href: "/safaris/women-only",
     description: "Safe, supportive, inspiring spaces for women travelers seeking connection and empowerment.",
     itineraries: [
-      { title: "Sisterhood Safari - Kenya", href: "/safaris/women-only/sisterhood-kenya-safari" },
-      { title: "Women's Empowerment - Uganda", href: "/safaris/women-only/women-empowerment-uganda" },
-      { title: "Coastal Culture Women's Journey", href: "/safaris/women-only/coastal-culture-women-tanzania" },
+      { title: "Sisterhood Safari - Kenya", href: "/safaris/women-only/sisterhood-kenya-safari", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Women exploring Kenya's iconic wildlife destinations" },
+      { title: "Women's Empowerment - Uganda", href: "/safaris/women-only/women-empowerment-uganda", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Gorilla trekking and women's empowerment experiences" },
+      { title: "Coastal Culture Women's Journey", href: "/safaris/women-only/coastal-culture-women-tanzania", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Cultural immersion and beach on Tanzania coast" },
+      { title: "Women's Wellness Rwanda Retreat", href: "/safaris/women-only/wellness-retreat-rwanda", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Gorilla trekking and wellness in Rwanda" },
+      { title: "Women's Adventure Tanzania Safari", href: "/safaris/women-only/adventure-tanzania", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Empowering wildlife adventure and Kilimanjaro" },
     ]
   },
   {
@@ -80,9 +109,11 @@ const safaris = [
     href: "/safaris/family",
     description: "Multi-generational adventures designed for families of all ages.",
     itineraries: [
-      { title: "Kenya Family Adventure", href: "/safaris/family/family-adventure-kenya" },
-      { title: "Uganda Family Gorilla Experience", href: "/safaris/family/gorilla-family-uganda" },
-      { title: "Tanzania Family Safari Classic", href: "/safaris/family/tanzania-family-safari" },
+      { title: "Kenya Family Adventure", href: "/safaris/family/family-adventure-kenya", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Wildlife, culture, and beach for families" },
+      { title: "Uganda Family Gorilla Experience", href: "/safaris/family/gorilla-family-uganda", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Gorilla trekking perfect for families" },
+      { title: "Tanzania Family Safari Classic", href: "/safaris/family/tanzania-family-safari", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Tanzania parks with activities for all" },
+      { title: "Rwanda Family Gorilla Safari", href: "/safaris/family/rwanda-family-gorilla", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Kid-friendly gorilla trek and Lake Kivu" },
+      { title: "East Africa Family Grand Tour", href: "/safaris/family/east-africa-grand-tour", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Multi-country adventure for the whole family" },
     ]
   },
   {
@@ -90,9 +121,11 @@ const safaris = [
     href: "/safaris/connection",
     description: "Heritage journeys for those with personal or family history in Africa.",
     itineraries: [
-      { title: "Roots Return - Kenya", href: "/safaris/connection/roots-return-kenya" },
-      { title: "Heritage Journey - Tanzania", href: "/safaris/connection/heritage-journey-tanzania" },
-      { title: "Cultural Connection - Uganda & Rwanda", href: "/safaris/connection/cultural-connection-uganda-rwanda" },
+      { title: "Roots Return - Kenya", href: "/safaris/connection/roots-return-kenya", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Reconnect with heritage and ancestral sites" },
+      { title: "Heritage Journey - Tanzania", href: "/safaris/connection/heritage-journey-tanzania", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Trace roots in Tanzania's diverse regions" },
+      { title: "Cultural Connection - Uganda & Rwanda", href: "/safaris/connection/cultural-connection-uganda-rwanda", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Cultural immersion across Uganda and Rwanda" },
+      { title: "Coastal Heritage - Swahili Coast", href: "/safaris/connection/coastal-heritage-swahili", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Explore Swahili culture and history" },
+      { title: "Ancestral Journey - East Africa", href: "/safaris/connection/ancestral-journey-east-africa", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Trace ancestry across Kenya and Tanzania" },
     ]
   },
   {
@@ -100,9 +133,11 @@ const safaris = [
     href: "/safaris/marathon",
     description: "Combine world-class running with wildlife adventure and beach recovery.",
     itineraries: [
-      { title: "Kilimanjaro Marathon Safari", href: "/safaris/marathon/kilimanjaro-marathon-safari" },
-      { title: "Lewa Safari Marathon Experience", href: "/safaris/marathon/safari-marathon-kenya" },
-      { title: "Gorilla Marathon - Uganda & Rwanda", href: "/safaris/marathon/gorilla-marathon-uganda-rwanda" },
+      { title: "Kilimanjaro Marathon Safari", href: "/safaris/marathon/kilimanjaro-marathon-safari", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Marathon followed by safari and beach" },
+      { title: "Lewa Safari Marathon Experience", href: "/safaris/marathon/safari-marathon-kenya", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Run alongside wildlife in Kenya's marathon" },
+      { title: "Gorilla Marathon - Uganda & Rwanda", href: "/safaris/marathon/gorilla-marathon-uganda-rwanda", image: "/images/homepage/discover-ea-sa-1.jpg", description: "Mountain running with gorilla trekking" },
+      { title: "Great Migration Marathon", href: "/safaris/marathon/great-migration-marathon", image: "/images/homepage/homepage-safari-experiences.jpg", description: "Run in Masai Mara during migration" },
+      { title: "Mount Kenya Trail Running Safari", href: "/safaris/marathon/mount-kenya-trail-running", image: "/images/homepage/discover-ea-sa-1.jpg", description: "High-altitude trail running and wildlife" },
     ]
   },
 ]
@@ -116,6 +151,15 @@ export default function Navbar() {
   const [mobileSafarisOpen, setMobileSafarisOpen] = React.useState(false)
   const [destinationsSheetOpen, setDestinationsSheetOpen] = React.useState(false)
   const [safarisSheetOpen, setSafarisSheetOpen] = React.useState(false)
+
+  // Set first destination as default when sheet opens
+  React.useEffect(() => {
+    if (destinationsSheetOpen && !hoveredDestination) {
+      setHoveredDestination(destinations[0].name)
+    } else if (!destinationsSheetOpen) {
+      setHoveredDestination(null)
+    }
+  }, [destinationsSheetOpen])
 
   // Set first safari as default when sheet opens
   React.useEffect(() => {
@@ -306,25 +350,18 @@ export default function Navbar() {
                   </div>
                   {mobileDestinationsOpen && (
                     <div className="ml-4 mt-2 flex flex-col space-y-2">
-                      {destinations.map((region) => (
-                        <div key={region.title}>
-                          <div className="text-sm font-medium text-muted-foreground mb-1">
-                            {region.title}
-                          </div>
-                          {region.countries.map((country) => (
-                            <Link
-                              key={country.name}
-                              href={country.href}
-                              className={cn(
-                                "block text-sm text-foreground/60 hover:text-foreground ml-2 py-1 px-2 rounded transition-all duration-200 hover:bg-amber-50",
-                                pathname === country.href && "!text-amber-800 !bg-amber-100 font-medium"
-                              )}
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {country.name}
-                            </Link>
-                          ))}
-                        </div>
+                      {destinations.map((destination) => (
+                        <Link
+                          key={destination.name}
+                          href={destination.href}
+                          className={cn(
+                            "block text-sm text-foreground/60 hover:text-foreground py-1 px-2 rounded transition-all duration-200 hover:bg-amber-50",
+                            pathname === destination.href && "!text-amber-800 !bg-amber-100 font-medium"
+                          )}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {destination.name}
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -428,55 +465,83 @@ export default function Navbar() {
           <SheetContent
             side="left"
             hideOverlay={true}
-            className="w-full sm:w-1/2 max-w-none bg-white border-r-0 z-50"
+            className="w-full sm:w-2/3 lg:w-3/5 max-w-none bg-white border-r-0 border-t border-border/10 z-50 p-0"
             style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}
           >
-            <SheetHeader>
-              <SheetTitle className="text-2xl font-freight-display-pro text-stone-800">
-                Destinations
-              </SheetTitle>
-              <SheetDescription>
-                Discover Africa&apos;s most incredible places across Eastern and Southern Africa
-              </SheetDescription>
+            <SheetHeader className="sr-only">
+              <SheetTitle>Destinations Navigation</SheetTitle>
             </SheetHeader>
-            <div className="mt-8 space-y-6 overflow-y-auto" style={{ maxHeight: 'calc(100vh - 14rem)' }}>
-              <Link
-                href="/destinations"
-                onClick={() => setDestinationsSheetOpen(false)}
-                className="block p-4 bg-stone-50 rounded-lg hover:bg-stone-100 transition-colors"
-              >
-                <h3 className="font-sofia-pro-bold text-lg text-stone-800 mb-2">All Destinations</h3>
-                <p className="font-sofia-pro text-sm text-stone-600">
-                  Explore all our incredible destinations
-                </p>
-              </Link>
-              {destinations.map((region) => (
-                <div key={region.title} className="space-y-3">
-                  <Link
-                    href={region.href}
-                    onClick={() => setDestinationsSheetOpen(false)}
-                    className="block p-4 bg-amber-50 rounded-lg hover:bg-amber-100 transition-colors"
-                  >
-                    <h3 className="font-sofia-pro-bold text-lg text-stone-800 mb-2">{region.title}</h3>
-                    <p className="font-sofia-pro text-sm text-stone-600">{region.description}</p>
-                  </Link>
-                  <div className="ml-4 grid grid-cols-2 gap-2">
-                    {region.countries.map((country) => (
+            <div className="flex h-full">
+              {/* Left Column - Countries */}
+              <div className="w-2/3 border-r border-stone-200 p-6 overflow-y-auto">
+                <div className="space-y-2">
+                  {destinations.map((destination) => (
+                    <div
+                      key={destination.name}
+                      onMouseEnter={() => setHoveredDestination(destination.name)}
+                      className={cn(
+                        "block p-4 rounded-lg transition-all duration-200 cursor-pointer",
+                        hoveredDestination === destination.name && "bg-amber-50",
+                        pathname.startsWith(destination.href) && !hoveredDestination && "bg-amber-100"
+                      )}
+                    >
                       <Link
-                        key={country.name}
-                        href={country.href}
+                        href={destination.href}
                         onClick={() => setDestinationsSheetOpen(false)}
-                        className={cn(
-                          "px-3 py-2 text-sm font-sofia-pro rounded-md hover:bg-amber-50 transition-colors",
-                          pathname === country.href && "bg-amber-100 text-amber-800 font-semibold"
-                        )}
+                        className="block"
                       >
-                        {country.name}
+                        <h3 className="font-sofia-pro-bold text-base text-stone-800 mb-1">{destination.name}</h3>
+                        <p className="font-sofia-pro text-xs text-stone-600 line-clamp-2">{destination.description}</p>
                       </Link>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Right Column - Attractions */}
+              <div className="w-1/3 p-6 pt-20 overflow-y-auto bg-stone-50">
+                {hoveredDestination ? (
+                  <>
+                    <div className="space-y-3">
+                      {destinations
+                        .find((d) => d.name === hoveredDestination)
+                        ?.attractions.map((attraction, idx) => {
+                          const country = destinations.find((d) => d.name === hoveredDestination);
+                          const attractionHref = attraction.slug
+                            ? `${country?.href}/attractions/${attraction.slug}`
+                            : country?.href || '#';
+                          return (
+                            <Link
+                              key={attraction.name}
+                              href={attractionHref}
+                              onClick={() => {
+                                setDestinationsSheetOpen(false)
+                                setHoveredDestination(null)
+                              }}
+                              className={cn(
+                                "block p-3 rounded-lg bg-white transition-all animate-in fade-in slide-in-from-left-4 hover:shadow-sm group cursor-pointer"
+                              )}
+                              style={{
+                                animationDelay: `${idx * 100}ms`,
+                                animationDuration: "500ms",
+                                animationFillMode: "both"
+                              }}
+                            >
+                              <p className="font-sofia-pro text-sm font-medium text-stone-800 group-hover:text-amber-600 transition-colors mb-1">{attraction.name}</p>
+                              <p className="font-sofia-pro text-xs text-stone-600">{attraction.description}</p>
+                            </Link>
+                          );
+                        })}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex items-center justify-center h-full text-center">
+                    <p className="font-sofia-pro text-sm text-stone-500">
+                      Hover over a country to see attractions
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </SheetContent>
       </Sheet>
@@ -508,7 +573,7 @@ export default function Navbar() {
             </SheetHeader>
             <div className="flex h-full">
               {/* Left Column - Safari Types */}
-              <div className="w-1/2 border-r border-stone-200 p-6 overflow-y-auto">
+              <div className="w-2/3 border-r border-stone-200 p-6 overflow-y-auto">
                 <div className="space-y-2">
                   {safaris.map((safari) => (
                     <div
@@ -534,13 +599,10 @@ export default function Navbar() {
               </div>
 
               {/* Right Column - Itineraries */}
-              <div className="w-1/2 p-6 overflow-y-auto bg-stone-50">
+              <div className="w-1/3 p-6 pt-20 overflow-y-auto bg-stone-50">
                 {hoveredSafari ? (
                   <>
-                    <h3 className="font-sofia-pro-bold text-lg text-stone-800 mb-4">
-                      {hoveredSafari} Itineraries
-                    </h3>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       {safaris
                         .find((s) => s.title === hoveredSafari)
                         ?.itineraries.map((itinerary, idx) => (
@@ -552,8 +614,8 @@ export default function Navbar() {
                               setHoveredSafari(null)
                             }}
                             className={cn(
-                              "block py-3 rounded-lg transition-colors group animate-in fade-in slide-in-from-left-4",
-                              pathname === itinerary.href && "bg-white shadow-sm border border-amber-200"
+                              "block rounded-lg overflow-hidden transition-colors group animate-in fade-in slide-in-from-left-4",
+                              pathname === itinerary.href && "ring-2 ring-amber-400"
                             )}
                             style={{
                               animationDelay: `${idx * 100}ms`,
@@ -561,7 +623,18 @@ export default function Navbar() {
                               animationFillMode: "both"
                             }}
                           >
-                            <p className="font-sofia-pro text-sm text-stone-700 group-hover:text-amber-600 transition-colors">{itinerary.title}</p>
+                            <div className="relative aspect-[16/10] w-full">
+                              <Image
+                                src={itinerary.image}
+                                alt={itinerary.title}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="py-2">
+                              <p className="font-sofia-pro text-sm font-medium text-stone-800 group-hover:text-amber-600 transition-colors mb-1">{itinerary.title}</p>
+                              <p className="font-sofia-pro text-xs text-stone-600 line-clamp-2">{itinerary.description}</p>
+                            </div>
                           </Link>
                         ))}
                     </div>

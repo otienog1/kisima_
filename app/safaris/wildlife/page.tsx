@@ -5,6 +5,13 @@ import { getWebsiteContent } from "@/lib/websiteContent";
 import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, MapPin, Calendar, ArrowRight } from "lucide-react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const wildlifeItineraries = [
   {
@@ -29,6 +36,22 @@ const wildlifeItineraries = [
     duration: { standard: "14 days", luxury: "9 days" },
     countries: ["Kenya", "Tanzania"],
     description: "Explore Kenya and Tanzania's legendary parks combined with relaxing beach time in Zanzibar.",
+    image: "/images/homepage/discover-ea-sa-1.jpg"
+  },
+  {
+    id: "ultimate-tanzania-wildlife",
+    title: "Ultimate Tanzania Wildlife Safari",
+    duration: { standard: "10 days", luxury: "7 days" },
+    countries: ["Tanzania"],
+    description: "Experience the best of Tanzania's legendary parks: Serengeti, Ngorongoro Crater, and Tarangire.",
+    image: "/images/homepage/homepage-safari-experiences.jpg"
+  },
+  {
+    id: "uganda-primate-wildlife",
+    title: "Uganda Primate & Wildlife Safari",
+    duration: { standard: "12 days", luxury: "9 days" },
+    countries: ["Uganda"],
+    description: "Combine gorilla and chimpanzee trekking with traditional savanna wildlife experiences.",
     image: "/images/homepage/discover-ea-sa-1.jpg"
   }
 ];
@@ -120,44 +143,57 @@ export default function WildlifeSafarisPage() {
               Explore our carefully crafted wildlife safari itineraries, each designed to give you the ultimate East African experience. Choose from standard or luxury options.
             </p>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {wildlifeItineraries.map((itinerary) => (
-              <div key={itinerary.id} className="space-y-6">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    alt={itinerary.title}
-                    fill
-                    className="object-cover"
-                    src={itinerary.image}
-                  />
-                </div>
-                <div>
-                  <h3 className="font-sofia-pro-bold text-xl mb-4 text-stone-800">
-                    {itinerary.title}
-                  </h3>
-                  <p className="font-sofia-pro text-stone-700 mb-4">
-                    {itinerary.description}
-                  </p>
-                  <ul className="font-sofia-pro text-sm text-stone-600 space-y-2 mb-6">
-                    <li className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                      <span>{itinerary.duration.standard} (Standard) | {itinerary.duration.luxury} (Luxury)</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                      <span>{itinerary.countries.join(", ")}</span>
-                    </li>
-                  </ul>
-                  <Link
-                    href={`/safaris/wildlife/${itinerary.id}`}
-                    className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-sofia-pro-bold transition-colors"
-                  >
-                    View Full Itinerary <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full max-w-6xl mx-auto"
+          >
+            <CarouselContent>
+              {wildlifeItineraries.map((itinerary) => (
+                <CarouselItem key={itinerary.id} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <div className="space-y-6">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          alt={itinerary.title}
+                          fill
+                          className="object-cover"
+                          src={itinerary.image}
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-sofia-pro-bold text-xl mb-4 text-stone-800">
+                          {itinerary.title}
+                        </h3>
+                        <p className="font-sofia-pro text-stone-700 mb-4">
+                          {itinerary.description}
+                        </p>
+                        <ul className="font-sofia-pro text-sm text-stone-600 space-y-2 mb-6">
+                          <li className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                            <span>{itinerary.duration.standard} (Standard) | {itinerary.duration.luxury} (Luxury)</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                            <span>{itinerary.countries.join(", ")}</span>
+                          </li>
+                        </ul>
+                        <Link
+                          href={`/safaris/wildlife/${itinerary.id}`}
+                          className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-sofia-pro-bold transition-colors"
+                        >
+                          View Full Itinerary <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </Section>
 

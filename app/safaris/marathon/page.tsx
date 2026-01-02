@@ -6,6 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { CheckCircle2, Calendar, MapPin, ArrowRight } from "lucide-react";
 import { marathonItinerariesData } from "@/lib/itinerariesData";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function MarathonSafarisPage() {
   const content = getWebsiteContent();
@@ -94,44 +101,57 @@ export default function MarathonSafarisPage() {
               Combine your passion for running with African adventure in these unique marathon safari experiences.
             </p>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {marathonItinerariesData.map((itinerary) => (
-              <div key={itinerary.id} className="space-y-6">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    alt={itinerary.title}
-                    fill
-                    className="object-cover"
-                    src={itinerary.image}
-                  />
-                </div>
-                <div>
-                  <h3 className="font-sofia-pro-bold text-xl mb-4 text-stone-800">
-                    {itinerary.title}
-                  </h3>
-                  <p className="font-sofia-pro text-stone-700 mb-4">
-                    {itinerary.description}
-                  </p>
-                  <ul className="font-sofia-pro text-sm text-stone-600 space-y-2 mb-6">
-                    <li className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                      <span>{itinerary.duration.standard} (Standard) | {itinerary.duration.luxury} (Luxury)</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                      <span>{itinerary.countries.join(", ")}</span>
-                    </li>
-                  </ul>
-                  <Link
-                    href={`/safaris/marathon/${itinerary.id}`}
-                    className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-sofia-pro-bold transition-colors"
-                  >
-                    View Full Itinerary <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full max-w-6xl mx-auto"
+          >
+            <CarouselContent>
+              {marathonItinerariesData.map((itinerary) => (
+                <CarouselItem key={itinerary.id} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <div className="space-y-6">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          alt={itinerary.title}
+                          fill
+                          className="object-cover"
+                          src={itinerary.image}
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-sofia-pro-bold text-xl mb-4 text-stone-800">
+                          {itinerary.title}
+                        </h3>
+                        <p className="font-sofia-pro text-stone-700 mb-4">
+                          {itinerary.description}
+                        </p>
+                        <ul className="font-sofia-pro text-sm text-stone-600 space-y-2 mb-6">
+                          <li className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                            <span>{itinerary.duration.standard} (Standard) | {itinerary.duration.luxury} (Luxury)</span>
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                            <span>{itinerary.countries.join(", ")}</span>
+                          </li>
+                        </ul>
+                        <Link
+                          href={`/safaris/marathon/${itinerary.id}`}
+                          className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-sofia-pro-bold transition-colors"
+                        >
+                          View Full Itinerary <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </Section>
 
