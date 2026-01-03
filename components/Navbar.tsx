@@ -5,7 +5,7 @@ import Link from "next/link"
 import ProgressLink from "@/components/ProgressLink"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import {
@@ -210,11 +210,12 @@ export default function Navbar() {
               <button
                 onClick={() => setDestinationsSheetOpen(true)}
                 className={cn(
-                  "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                  "group inline-flex h-9 w-max items-center justify-center gap-1 rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
                   pathname.startsWith("/destinations") && "!bg-amber-100 !text-amber-800 font-semibold"
                 )}
               >
                 Destinations
+                <ChevronDown className="h-4 w-4 opacity-50" />
               </button>
             </NavigationMenuItem>
 
@@ -222,11 +223,12 @@ export default function Navbar() {
               <button
                 onClick={() => setSafarisSheetOpen(true)}
                 className={cn(
-                  "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                  "group inline-flex h-9 w-max items-center justify-center gap-1 rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
                   pathname.startsWith("/safaris") && "!bg-amber-100 !text-amber-800 font-semibold"
                 )}
               >
                 Safaris
+                <ChevronDown className="h-4 w-4 opacity-50" />
               </button>
             </NavigationMenuItem>
 
