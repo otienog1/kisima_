@@ -10,7 +10,7 @@ interface HeroSliderProps {
 export default function HeroSlider({ className = "" }: HeroSliderProps) {
   return (
     <section
-      className={cn("relative h-[88vh] overflow-hidden", className)}
+      className={cn("relative h-screen overflow-hidden", className)}
       aria-label="Hero section"
     >
       {/* Background Image */}

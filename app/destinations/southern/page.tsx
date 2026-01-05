@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Southern Africa Safari Destinations - Timobo Safaris Ltd",
+  title: "Southern Africa Safaris - Botswana, Zimbabwe, Namibia & South Africa",
   description: "Discover Southern Africa's dramatic landscapes including South Africa's wine regions, Botswana's Okavango Delta, Zimbabwe's Victoria Falls, and Namibia's desert wilderness.",
   keywords: ["Southern Africa safari", "South Africa tours", "Botswana Okavango", "Zimbabwe Victoria Falls", "Namibia desert"],
 };

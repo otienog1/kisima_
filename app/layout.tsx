@@ -49,8 +49,11 @@ const productsans = localFont({
 })
 
 export const metadata = {
-    title: 'Timobo Safaris Ltd - Experiences of Africa',
-    description: 'For over 18 years, Timobo Safaris Ltd has specialized in purpose-driven safaris in Kenya and tailor-made African safari tours across Eastern and Southern Africa.',
+    title: {
+        default: 'Kisima Safaris | Authentic African Safari Experiences',
+        template: '%s | Kisima Safaris'
+    },
+    description: 'Experience authentic African safaris with Kisima Safaris. Custom safari tours, wildlife adventures, and sustainable tourism across Kenya, Tanzania, Uganda, Rwanda & Southern Africa.',
 }
 
 export default function RootLayout({
@@ -63,7 +66,7 @@ export default function RootLayout({
             <head>
                 <link rel="stylesheet" href="https://use.typekit.net/zlm8ffl.css" />
             </head>
-            <body className={productsans.className} suppressHydrationWarning>
+            <body className={`${productsans.className} overflow-x-hidden`} suppressHydrationWarning>
                 <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} forcedTheme="light">
                     <ProgressBar />
                     <Navbar />

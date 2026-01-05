@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Calendar, MapPin, Star, ArrowLeft } from "lucide-react";
 import { marathonItinerariesData } from "@/lib/itinerariesData";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export function generateStaticParams() {
   return marathonItinerariesData.map((itinerary) => ({
@@ -11,8 +12,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ItineraryPage({ params }: { params: { id: string } }) {
-  const itinerary = marathonItinerariesData.find((item) => item.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const itinerary = marathonItinerariesData.find((item) => item.id === id);
+
+  if (!itinerary) {
+    return {
+      title: "Itinerary Not Found",
+    };
+  }
+
+  return {
+    title: `${itinerary.title} - Marathon Safari`,
+    description: `${itinerary.description.substring(0, 155)}...`,
+    keywords: [itinerary.title, "marathon safari", "African safari", "safari itinerary", itinerary.destination, "running adventure"],
+  };
+}
+
+export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const itinerary = marathonItinerariesData.find((item) => item.id === id);
 
   if (!itinerary) {
     notFound();

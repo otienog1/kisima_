@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 const ugandaAttractions = {
   "bwindi-impenetrable-forest": {
@@ -93,8 +94,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function UgandaAttractionPage({ params }: { params: { slug: string } }) {
-  const attraction = ugandaAttractions[params.slug as keyof typeof ugandaAttractions];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const attraction = ugandaAttractions[slug as keyof typeof ugandaAttractions];
+
+  if (!attraction) {
+    return {
+      title: "Attraction Not Found",
+    };
+  }
+
+  return {
+    title: `${attraction.name} - Uganda Safari`,
+    description: `${attraction.description}. ${attraction.fullDescription.substring(0, 120)}...`,
+    keywords: [attraction.name, "Uganda safari", "wildlife viewing", "African safari", attraction.name.toLowerCase()],
+  };
+}
+
+export default async function UgandaAttractionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const attraction = ugandaAttractions[slug as keyof typeof ugandaAttractions];
 
   if (!attraction) {
     notFound();

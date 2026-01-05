@@ -115,7 +115,7 @@ export default function HomePage() {
 
 
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main className="min-h-screen overflow-x-hidden -mt-[7.5rem]">
       <HeroSlider />
 
 

@@ -45,6 +45,9 @@ export default function ProgressBar() {
 
       // Start progress for internal navigation
       if (href.startsWith("/")) {
+        // Skip if clicking on the current page
+        if (href === pathname) return;
+
         NProgress.start();
       }
     };
@@ -54,7 +57,7 @@ export default function ProgressBar() {
     return () => {
       document.removeEventListener("click", handleClick, true);
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

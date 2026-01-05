@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Calendar, MapPin, Star, ArrowLeft } from "lucide-react";
 import { wildlifeItinerariesData } from "@/lib/itinerariesData";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export function generateStaticParams() {
   return wildlifeItinerariesData.map((itinerary) => ({
@@ -11,8 +12,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ItineraryPage({ params }: { params: { id: string } }) {
-  const itinerary = wildlifeItinerariesData.find((item) => item.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const itinerary = wildlifeItinerariesData.find((item) => item.id === id);
+
+  if (!itinerary) {
+    return {
+      title: "Itinerary Not Found",
+    };
+  }
+
+  return {
+    title: `${itinerary.title} - Wildlife Safari Itinerary`,
+    description: `${itinerary.description.substring(0, 155)}...`,
+    keywords: [itinerary.title, "wildlife safari", "African safari", "safari itinerary", itinerary.destination],
+  };
+}
+
+export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const itinerary = wildlifeItinerariesData.find((item) => item.id === id);
 
   if (!itinerary) {
     notFound();

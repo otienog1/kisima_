@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Eastern Africa Safari Destinations - Timobo Safaris Ltd",
+  title: "East Africa Safari Destinations - Kenya, Tanzania, Rwanda & Uganda",
   description: "Explore Eastern Africa's premier safari destinations including Kenya's Maasai Mara, Tanzania's Serengeti, Rwanda's mountain gorillas, and Uganda's pristine wilderness.",
   keywords: ["Eastern Africa safari", "Kenya Maasai Mara", "Tanzania Serengeti", "Rwanda gorillas", "Uganda wildlife"],
 };

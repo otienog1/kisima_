@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Calendar, MapPin, Star, ArrowLeft } from "lucide-react";
 import { connectionItinerariesData } from "@/lib/itinerariesData";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export function generateStaticParams() {
   return connectionItinerariesData.map((itinerary) => ({
@@ -11,8 +12,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ItineraryPage({ params }: { params: { id: string } }) {
-  const itinerary = connectionItinerariesData.find((item) => item.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const itinerary = connectionItinerariesData.find((item) => item.id === id);
+
+  if (!itinerary) {
+    return {
+      title: "Itinerary Not Found",
+    };
+  }
+
+  return {
+    title: `${itinerary.title} - Cultural Connection Safari`,
+    description: `${itinerary.description.substring(0, 155)}...`,
+    keywords: [itinerary.title, "cultural safari", "African safari", "safari itinerary", itinerary.destination, "cultural immersion"],
+  };
+}
+
+export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const itinerary = connectionItinerariesData.find((item) => item.id === id);
 
   if (!itinerary) {
     notFound();

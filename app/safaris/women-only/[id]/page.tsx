@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Calendar, MapPin, Star, ArrowLeft } from "lucide-react";
 import { womenOnlyItinerariesData } from "@/lib/itinerariesData";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export function generateStaticParams() {
   return womenOnlyItinerariesData.map((itinerary) => ({
@@ -11,8 +12,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ItineraryPage({ params }: { params: { id: string } }) {
-  const itinerary = womenOnlyItinerariesData.find((item) => item.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const itinerary = womenOnlyItinerariesData.find((item) => item.id === id);
+
+  if (!itinerary) {
+    return {
+      title: "Itinerary Not Found",
+    };
+  }
+
+  return {
+    title: `${itinerary.title} - Women-Only Safari Itinerary`,
+    description: `${itinerary.description.substring(0, 155)}...`,
+    keywords: [itinerary.title, "women-only safari", "African safari", "safari itinerary", itinerary.destination, "solo women travel"],
+  };
+}
+
+export default async function ItineraryPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const itinerary = womenOnlyItinerariesData.find((item) => item.id === id);
 
   if (!itinerary) {
     notFound();

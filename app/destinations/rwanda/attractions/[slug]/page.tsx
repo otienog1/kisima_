@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 const rwandaAttractions = {
   "volcanoes-national-park": {
@@ -93,8 +94,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function RwandaAttractionPage({ params }: { params: { slug: string } }) {
-  const attraction = rwandaAttractions[params.slug as keyof typeof rwandaAttractions];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const attraction = rwandaAttractions[slug as keyof typeof rwandaAttractions];
+
+  if (!attraction) {
+    return {
+      title: "Attraction Not Found",
+    };
+  }
+
+  return {
+    title: `${attraction.name} - Rwanda Safari`,
+    description: `${attraction.description}. ${attraction.fullDescription.substring(0, 120)}...`,
+    keywords: [attraction.name, "Rwanda safari", "wildlife viewing", "African safari", attraction.name.toLowerCase()],
+  };
+}
+
+export default async function RwandaAttractionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const attraction = rwandaAttractions[slug as keyof typeof rwandaAttractions];
 
   if (!attraction) {
     notFound();

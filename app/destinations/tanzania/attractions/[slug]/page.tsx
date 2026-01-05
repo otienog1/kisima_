@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 const tanzaniaAttractions = {
   "serengeti-national-park": {
@@ -88,8 +89,26 @@ export function generateStaticParams() {
   }));
 }
 
-export default function TanzaniaAttractionPage({ params }: { params: { slug: string } }) {
-  const attraction = tanzaniaAttractions[params.slug as keyof typeof tanzaniaAttractions];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const attraction = tanzaniaAttractions[slug as keyof typeof tanzaniaAttractions];
+
+  if (!attraction) {
+    return {
+      title: "Attraction Not Found",
+    };
+  }
+
+  return {
+    title: `${attraction.name} - Tanzania Safari`,
+    description: `${attraction.description}. ${attraction.fullDescription.substring(0, 120)}...`,
+    keywords: [attraction.name, "Tanzania safari", "wildlife viewing", "African safari", attraction.name.toLowerCase()],
+  };
+}
+
+export default async function TanzaniaAttractionPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const attraction = tanzaniaAttractions[slug as keyof typeof tanzaniaAttractions];
 
   if (!attraction) {
     notFound();

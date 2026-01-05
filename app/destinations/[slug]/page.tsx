@@ -23,22 +23,33 @@ export function generateStaticParams(): { slug: string }[] {
   return params;
 }
 
+// Helper function to convert destination names to title case
+function toTitleCase(str: string): string {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const destination = getDestinationBySlug(slug);
-  
+
   if (!destination) {
     return {
       title: "Destination Not Found",
     };
   }
 
+  const destinationName = toTitleCase(destination.name);
+
   return {
-    title: `${destination.name} Safari Tours - Timobo Safaris Ltd`,
-    description: `${destination.tagline} ${destination.description.substring(0, 150)}...`,
-    keywords: [`${destination.name} safari`, `${destination.name} tours`, "African wildlife", "safari packages"],
+    title: `${destinationName} Safaris - ${destination.tagline}`,
+    description: `${destination.tagline}. ${destination.description.substring(0, 140)}...`,
+    keywords: [`${destination.name} safari`, `${destination.name} tours`, "African wildlife", "safari packages", `${destination.name} travel`],
     openGraph: {
-      title: `${destination.name} Safari Tours`,
+      title: `${destinationName} Safaris - ${destination.tagline}`,
       description: destination.tagline,
       type: "website",
     },

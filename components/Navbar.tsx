@@ -151,6 +151,93 @@ export default function Navbar() {
   const [mobileSafarisOpen, setMobileSafarisOpen] = React.useState(false)
   const [destinationsSheetOpen, setDestinationsSheetOpen] = React.useState(false)
   const [safarisSheetOpen, setSafarisSheetOpen] = React.useState(false)
+  const [destinationsClosing, setDestinationsClosing] = React.useState(false)
+  const [safarisClosing, setSafarisClosing] = React.useState(false)
+  const [destinationsRepositioned, setDestinationsRepositioned] = React.useState(false)
+  const [safarisRepositioned, setSafarisRepositioned] = React.useState(false)
+  const destinationsButtonRef = React.useRef<HTMLButtonElement>(null)
+  const safarisButtonRef = React.useRef<HTMLButtonElement>(null)
+  const destinationsContentRef = React.useRef<HTMLDivElement>(null)
+  const safarisContentRef = React.useRef<HTMLDivElement>(null)
+  const [destinationsLeftPos, setDestinationsLeftPos] = React.useState(0)
+  const [safarisLeftPos, setSafarisLeftPos] = React.useState(0)
+  const [destinationsHeight, setDestinationsHeight] = React.useState(0)
+  const [safarisHeight, setSafarisHeight] = React.useState(0)
+  const [isScrolled, setIsScrolled] = React.useState(false)
+
+  // Helper functions to close panels with animation
+  const closeDestinationsPanel = React.useCallback(() => {
+    setDestinationsClosing(true)
+    setDestinationsRepositioned(false)
+    // Use requestAnimationFrame to ensure repositioning happens before width animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Then trigger width collapse after browser has repositioned
+        setDestinationsRepositioned(true)
+      })
+    })
+    // Finally reset states after animation
+    setTimeout(() => {
+      setDestinationsSheetOpen(false)
+      setDestinationsClosing(false)
+      setDestinationsRepositioned(false)
+    }, 550) // 500ms animation + buffer
+  }, [])
+
+  const closeSafarisPanel = React.useCallback(() => {
+    setSafarisClosing(true)
+    setSafarisRepositioned(false)
+    // Use requestAnimationFrame to ensure repositioning happens before width animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Then trigger width collapse after browser has repositioned
+        setSafarisRepositioned(true)
+      })
+    })
+    // Finally reset states after animation
+    setTimeout(() => {
+      setSafarisSheetOpen(false)
+      setSafarisClosing(false)
+      setSafarisRepositioned(false)
+    }, 550) // 500ms animation + buffer
+  }, [])
+
+  // Calculate button positions and content heights
+  React.useEffect(() => {
+    const updatePositions = () => {
+      if (destinationsButtonRef.current) {
+        const rect = destinationsButtonRef.current.getBoundingClientRect()
+        setDestinationsLeftPos(rect.left)
+      }
+      if (safarisButtonRef.current) {
+        const rect = safarisButtonRef.current.getBoundingClientRect()
+        setSafarisLeftPos(rect.left)
+      }
+    }
+
+    const updateHeights = () => {
+      if (destinationsContentRef.current) {
+        const height = destinationsContentRef.current.scrollHeight
+        setDestinationsHeight(height + 48) // Add padding (p-6 = 24px * 2)
+      }
+      if (safarisContentRef.current) {
+        const height = safarisContentRef.current.scrollHeight
+        setSafarisHeight(height + 48) // Add padding (p-6 = 24px * 2)
+      }
+    }
+
+    updatePositions()
+    // Delay height calculation to ensure content is rendered
+    setTimeout(updateHeights, 100)
+
+    const handleResize = () => {
+      updatePositions()
+      updateHeights()
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Set first destination as default when sheet opens
   React.useEffect(() => {
@@ -170,34 +257,55 @@ export default function Navbar() {
     }
   }, [safarisSheetOpen])
 
+  // Handle scroll to change navbar background
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const isHomePage = pathname === "/"
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/10 bg-white/95 backdrop-blur-sm">
-      <div className="container flex h-20 max-w-screen-xl items-center justify-between">
-        {/* Logo */}
-        <div className="flex">
-          <Link href="/" className="flex items-center space-x-3">
-            <Image
-              src="/_Logo.svg"
-              alt="Kisima Safaris Logo"
-              width={60}
-              height={60}
-              className="h-12 md:h-14 w-auto"
-            />
-            <span className="hidden font-bold sm:inline-block text-lg" style={{fontFamily: '"sofia-pro", sans-serif', fontWeight: 400, fontStyle: 'normal'}}>
+    <header className={cn(
+      "sticky top-0 z-50 w-full backdrop-blur-sm transition-all duration-300",
+      isScrolled || !isHomePage ? "bg-white/95 border-b border-stone-200/30" : "bg-transparent border-b border-white/20"
+    )}>
+      <div className="container max-w-screen-xl">
+        {/* Company Name Row */}
+        <div className={cn(
+          "flex items-center justify-center overflow-hidden transition-all duration-300",
+          isScrolled ? "h-0 opacity-0" : "h-16 opacity-100"
+        )}>
+          <Link href="/" className="flex items-center">
+            <span className={cn(
+              "font-bold text-2xl transition-colors duration-300",
+              isScrolled || !isHomePage ? "text-stone-800" : "text-white"
+            )} style={{fontFamily: '"sofia-pro", sans-serif', fontWeight: 600, fontStyle: 'normal'}}>
               Kisima Safaris
             </span>
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
-        <NavigationMenu className="hidden md:flex">
+        {/* Navigation Row */}
+        <div className="flex h-14 items-center justify-between">
+          {/* Desktop Navigation - Left Aligned */}
+          <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
+                  onClick={() => {
+                    if (destinationsSheetOpen) closeDestinationsPanel()
+                    if (safarisSheetOpen) closeSafarisPanel()
+                  }}
                   className={cn(
-                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    isScrolled || !isHomePage ? "text-stone-800" : "text-white",
                     pathname === "/" && "!bg-amber-100 !text-amber-800 font-semibold"
                   )}
                 >
@@ -208,22 +316,21 @@ export default function Navbar() {
 
             <NavigationMenuItem>
               <button
-                onClick={() => setDestinationsSheetOpen(true)}
+                ref={safarisButtonRef}
+                onClick={() => {
+                  if (destinationsSheetOpen) {
+                    closeDestinationsPanel()
+                    // Wait for destinations panel to close before opening safaris
+                    setTimeout(() => {
+                      setSafarisSheetOpen(true)
+                    }, 250)
+                  } else {
+                    setSafarisSheetOpen(true)
+                  }
+                }}
                 className={cn(
-                  "group inline-flex h-9 w-max items-center justify-center gap-1 rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
-                  pathname.startsWith("/destinations") && "!bg-amber-100 !text-amber-800 font-semibold"
-                )}
-              >
-                Destinations
-                <ChevronDown className="h-4 w-4 opacity-50" />
-              </button>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <button
-                onClick={() => setSafarisSheetOpen(true)}
-                className={cn(
-                  "group inline-flex h-9 w-max items-center justify-center gap-1 rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                  "group inline-flex h-9 w-max items-center justify-center gap-1 rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                  isScrolled || !isHomePage ? "text-stone-800" : "text-white",
                   pathname.startsWith("/safaris") && "!bg-amber-100 !text-amber-800 font-semibold"
                 )}
               >
@@ -233,11 +340,41 @@ export default function Navbar() {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
+              <button
+                ref={destinationsButtonRef}
+                onClick={() => {
+                  if (safarisSheetOpen) {
+                    closeSafarisPanel()
+                    // Wait for safari panel to close before opening destinations
+                    setTimeout(() => {
+                      setDestinationsSheetOpen(true)
+                    }, 250)
+                  } else {
+                    setDestinationsSheetOpen(true)
+                  }
+                }}
+                className={cn(
+                  "group inline-flex h-9 w-max items-center justify-center gap-1 rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                  isScrolled || !isHomePage ? "text-stone-800" : "text-white",
+                  pathname.startsWith("/destinations") && "!bg-amber-100 !text-amber-800 font-semibold"
+                )}
+              >
+                Destinations
+                <ChevronDown className="h-4 w-4 opacity-50" />
+              </button>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
                   href="/sustainability"
+                  onClick={() => {
+                    if (destinationsSheetOpen) closeDestinationsPanel()
+                    if (safarisSheetOpen) closeSafarisPanel()
+                  }}
                   className={cn(
-                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    isScrolled || !isHomePage ? "text-stone-800" : "text-white",
                     (pathname === "/sustainability" || pathname.startsWith("/sustainability/")) && "!bg-amber-100 !text-amber-800 font-semibold"
                   )}
                 >
@@ -250,8 +387,13 @@ export default function Navbar() {
               <NavigationMenuLink asChild>
                 <Link
                   href="/about"
+                  onClick={() => {
+                    if (destinationsSheetOpen) closeDestinationsPanel()
+                    if (safarisSheetOpen) closeSafarisPanel()
+                  }}
                   className={cn(
-                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    isScrolled || !isHomePage ? "text-stone-800" : "text-white",
                     (pathname === "/about" || pathname.startsWith("/about/")) && "!bg-amber-100 !text-amber-800 font-semibold"
                   )}
                 >
@@ -264,8 +406,13 @@ export default function Navbar() {
               <NavigationMenuLink asChild>
                 <Link
                   href="/contact"
+                  onClick={() => {
+                    if (destinationsSheetOpen) closeDestinationsPanel()
+                    if (safarisSheetOpen) closeSafarisPanel()
+                  }}
                   className={cn(
-                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    "group inline-flex h-9 w-max items-center justify-center rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-amber-50 hover:text-amber-700 active:bg-amber-100 focus-visible:bg-amber-50 focus-visible:text-amber-700",
+                    isScrolled || !isHomePage ? "text-stone-800" : "text-white",
                     (pathname === "/contact" || pathname.startsWith("/contact/")) && "!bg-amber-100 !text-amber-800 font-semibold"
                   )}
                 >
@@ -276,34 +423,26 @@ export default function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
 
-
-        {/* Mobile Menu */}
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              className="px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
-            >
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Toggle Menu</span>
-            </Button>
-          </SheetTrigger>
+          {/* Mobile Menu */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                className="px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+              >
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
           <SheetContent side="left" className="w-full h-full max-w-none pr-0 bg-white/100 backdrop-blur-none">
             <SheetHeader>
               <SheetTitle className="text-left">
                 <Link
                   href="/"
-                  className="flex items-center space-x-2"
+                  className="flex items-center"
                   onClick={() => setIsOpen(false)}
                 >
-                  <Image
-                    src="/_Logo.svg"
-                    width={40}
-                    height={40}
-                    alt="Kisima Safaris"
-                    className="h-8 w-auto"
-                  />
-                  <span style={{fontFamily: '"sofia-pro", sans-serif', fontWeight: 400, fontStyle: 'normal'}}>Kisima Safaris</span>
+                  <span className="font-bold text-xl" style={{fontFamily: '"sofia-pro", sans-serif', fontWeight: 600, fontStyle: 'normal'}}>Kisima Safaris</span>
                 </Link>
               </SheetTitle>
               <SheetDescription className="text-left">
@@ -446,37 +585,53 @@ export default function Navbar() {
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </div>
 
       {/* Custom Overlay for Destinations */}
       <div
-        className={cn(
-          "fixed left-0 right-0 bg-stone-800/60 backdrop-blur-sm transition-all duration-500 ease-in-out z-40",
-          destinationsSheetOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        )}
+        className="hidden"
         style={{
-          top: '5rem',
-          height: 'calc(100vh - 5rem)',
+          top: isScrolled ? '3.5rem' : '7.5rem',
+          height: isScrolled ? 'calc(100vh - 3.5rem)' : 'calc(100vh - 7.5rem)',
           transitionDelay: destinationsSheetOpen ? '200ms' : '0ms'
         }}
-        onClick={() => setDestinationsSheetOpen(false)}
+        onClick={closeDestinationsPanel}
       />
 
+      {/* Destinations Close Button - Positioned outside panel */}
+      <button
+        onClick={closeDestinationsPanel}
+        className="fixed z-[60] rounded-sm ring-offset-background transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none bg-white border border-stone-200/30 p-2.5 hover:border-stone-400 shadow-sm"
+        style={{
+          top: isScrolled ? '3.5rem' : '7.5rem',
+          left: `${destinationsLeftPos - 44}px`,
+          opacity: destinationsSheetOpen && !destinationsClosing ? 1 : 0,
+          pointerEvents: destinationsSheetOpen && !destinationsClosing ? 'auto' : 'none',
+          transition: 'opacity 250ms ease-in-out, top 300ms ease-in-out, left 250ms ease-in-out'
+        }}
+      >
+        <X className="h-5 w-5" />
+        <span className="sr-only">Close</span>
+      </button>
+
       {/* Destinations Sliding Panel */}
-      <Sheet open={destinationsSheetOpen} onOpenChange={setDestinationsSheetOpen}>
-          <SheetContent
-            side="left"
-            hideOverlay={true}
-            className="w-full sm:w-2/3 lg:w-3/5 max-w-none bg-white border-r-0 border-t border-border/10 z-50 p-0"
-            style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}
-          >
-            <SheetHeader className="sr-only">
-              <SheetTitle>Destinations Navigation</SheetTitle>
-            </SheetHeader>
-            <div className="flex h-full">
+      <div
+        className="fixed bg-white border-t border-stone-200/30 z-50 p-0 overflow-hidden overflow-y-hidden"
+        style={{
+          top: isScrolled ? '3.5rem' : '7.5rem',
+          left: `${destinationsLeftPos}px`,
+          width: `calc((100vw - ${destinationsLeftPos}px) / 2)`,
+          transition: 'height 250ms ease-in-out, top 300ms ease-in-out, opacity 250ms ease-in-out',
+          height: destinationsSheetOpen && !destinationsClosing ? `${destinationsHeight}px` : '0',
+          opacity: destinationsSheetOpen && !destinationsClosing ? 1 : 0,
+          pointerEvents: destinationsSheetOpen ? 'auto' : 'none'
+        }}
+      >
+        <div className="flex h-full">
               {/* Left Column - Countries */}
-              <div className="w-2/3 border-r border-stone-200 p-6 overflow-y-auto">
-                <div className="space-y-2">
+              <div className="w-4/7 border-r border-stone-200/30 p-6 overflow-y-hidden" style={{ width: 'calc(4 / 7 * 100%)' }}>
+                <div ref={destinationsContentRef} className="space-y-2">
                   {destinations.map((destination) => (
                     <div
                       key={destination.name}
@@ -489,7 +644,7 @@ export default function Navbar() {
                     >
                       <Link
                         href={destination.href}
-                        onClick={() => setDestinationsSheetOpen(false)}
+                        onClick={closeDestinationsPanel}
                         className="block"
                       >
                         <h3 className="font-sofia-pro-bold text-base text-stone-800 mb-1">{destination.name}</h3>
@@ -501,7 +656,7 @@ export default function Navbar() {
               </div>
 
               {/* Right Column - Attractions */}
-              <div className="w-1/3 p-6 pt-20 overflow-y-auto bg-stone-50">
+              <div className="w-3/7 p-6 overflow-y-auto bg-stone-50" style={{ width: 'calc(3 / 7 * 100%)' }}>
                 {hoveredDestination ? (
                   <>
                     <div className="space-y-3">
@@ -517,11 +672,11 @@ export default function Navbar() {
                               key={attraction.name}
                               href={attractionHref}
                               onClick={() => {
-                                setDestinationsSheetOpen(false)
+                                closeDestinationsPanel()
                                 setHoveredDestination(null)
                               }}
                               className={cn(
-                                "block p-3 rounded-lg bg-white transition-all animate-in fade-in slide-in-from-left-4 hover:shadow-sm group cursor-pointer"
+                                "block p-3 rounded-lg bg-white transition-all animate-in fade-in slide-in-from-bottom-4 hover:shadow-sm group cursor-pointer"
                               )}
                               style={{
                                 animationDelay: `${idx * 100}ms`,
@@ -545,38 +700,52 @@ export default function Navbar() {
                 )}
               </div>
             </div>
-          </SheetContent>
-      </Sheet>
+      </div>
 
       {/* Custom Overlay for Safaris */}
       <div
-        className={cn(
-          "fixed left-0 right-0 bg-stone-800/60 backdrop-blur-sm transition-all duration-500 ease-in-out z-40",
-          safarisSheetOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        )}
+        className="hidden"
         style={{
-          top: '5rem',
-          height: 'calc(100vh - 5rem)',
+          top: isScrolled ? '3.5rem' : '7.5rem',
+          height: isScrolled ? 'calc(100vh - 3.5rem)' : 'calc(100vh - 7.5rem)',
           transitionDelay: safarisSheetOpen ? '200ms' : '0ms'
         }}
-        onClick={() => setSafarisSheetOpen(false)}
+        onClick={closeSafarisPanel}
       />
 
+      {/* Safaris Close Button - Positioned outside panel */}
+      <button
+        onClick={closeSafarisPanel}
+        className="fixed z-[60] rounded-sm ring-offset-background transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none bg-white border border-stone-200/30 p-2.5 hover:border-stone-400 shadow-sm"
+        style={{
+          top: isScrolled ? '3.5rem' : '7.5rem',
+          left: `${safarisLeftPos - 44}px`,
+          opacity: safarisSheetOpen && !safarisClosing ? 1 : 0,
+          pointerEvents: safarisSheetOpen && !safarisClosing ? 'auto' : 'none',
+          transition: 'opacity 250ms ease-in-out, top 300ms ease-in-out, left 250ms ease-in-out'
+        }}
+      >
+        <X className="h-5 w-5" />
+        <span className="sr-only">Close</span>
+      </button>
+
       {/* Safaris Sliding Panel */}
-      <Sheet open={safarisSheetOpen} onOpenChange={setSafarisSheetOpen}>
-          <SheetContent
-            side="left"
-            hideOverlay={true}
-            className="w-full sm:w-2/3 lg:w-3/5 max-w-none bg-white border-r-0 border-t border-border/10 z-50 p-0"
-            style={{ height: 'calc(100vh - 5rem)', top: '5rem' }}
-          >
-            <SheetHeader className="sr-only">
-              <SheetTitle>Safaris Navigation</SheetTitle>
-            </SheetHeader>
-            <div className="flex h-full">
+      <div
+        className="fixed bg-white border-t border-stone-200/30 z-50 p-0 overflow-hidden overflow-y-hidden"
+        style={{
+          top: isScrolled ? '3.5rem' : '7.5rem',
+          left: `${safarisLeftPos}px`,
+          width: `calc((100vw - ${safarisLeftPos}px) / 2)`,
+          transition: 'height 250ms ease-in-out, top 300ms ease-in-out, opacity 250ms ease-in-out',
+          height: safarisSheetOpen && !safarisClosing ? `${safarisHeight}px` : '0',
+          opacity: safarisSheetOpen && !safarisClosing ? 1 : 0,
+          pointerEvents: safarisSheetOpen ? 'auto' : 'none'
+        }}
+      >
+        <div className="flex h-full">
               {/* Left Column - Safari Types */}
-              <div className="w-2/3 border-r border-stone-200 p-6 overflow-y-auto">
-                <div className="space-y-2">
+              <div className="w-4/7 border-r border-stone-200/30 p-6 overflow-y-hidden" style={{ width: 'calc(4 / 7 * 100%)' }}>
+                <div ref={safarisContentRef} className="space-y-2">
                   {safaris.map((safari) => (
                     <div
                       key={safari.title}
@@ -589,7 +758,7 @@ export default function Navbar() {
                     >
                       <Link
                         href={safari.href}
-                        onClick={() => setSafarisSheetOpen(false)}
+                        onClick={closeSafarisPanel}
                         className="block"
                       >
                         <h3 className="font-sofia-pro-bold text-base text-stone-800 mb-1">{safari.title}</h3>
@@ -601,7 +770,7 @@ export default function Navbar() {
               </div>
 
               {/* Right Column - Itineraries */}
-              <div className="w-1/3 p-6 pt-20 overflow-y-auto bg-stone-50">
+              <div className="w-3/7 p-6 overflow-y-auto bg-stone-50" style={{ width: 'calc(3 / 7 * 100%)' }}>
                 {hoveredSafari ? (
                   <>
                     <div className="space-y-3">
@@ -612,11 +781,11 @@ export default function Navbar() {
                             key={itinerary.href}
                             href={itinerary.href}
                             onClick={() => {
-                              setSafarisSheetOpen(false)
+                              closeSafarisPanel()
                               setHoveredSafari(null)
                             }}
                             className={cn(
-                              "block rounded-lg overflow-hidden transition-colors group animate-in fade-in slide-in-from-left-4",
+                              "block rounded-lg overflow-hidden transition-colors group animate-in fade-in slide-in-from-bottom-4",
                               pathname === itinerary.href && "ring-2 ring-amber-400"
                             )}
                             style={{
@@ -650,8 +819,7 @@ export default function Navbar() {
                 )}
               </div>
             </div>
-          </SheetContent>
-      </Sheet>
+      </div>
     </header>
   )
 }
